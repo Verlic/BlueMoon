@@ -1,0 +1,15 @@
+﻿<Window x:Class="Marker.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:scintillaNet="clr-namespace:ScintillaNET;assembly=ScintillaNET"
+        Loaded="WindowLoaded"
+        Title="MainWindow" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <WindowsFormsHost x:Name="HostControl"></WindowsFormsHost>
+        <Button Grid.Column="1" Click="Button_Click">Hello</Button>
+    </Grid>
+</Window>
