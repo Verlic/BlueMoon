@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marker.WPF", "Marker.WPF\Marker.WPF.csproj", "{8628D2A7-F4A6-4245-B09F-29CFCFFE6029}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converters.Markdown", "Converters.Markdown\Converters.Markdown.csproj", "{DD7C0513-7BA5-4B1F-8EC9-18D092FD8708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilco.SyntaxHighlighting", "Wilco.SyntaxHighlighting\Wilco.SyntaxHighlighting.csproj", "{18A6C758-559C-404C-B434-858051D3C73F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{F46D9EB4-26E9-4992-B259-3E3C5E68AD4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D47DD9E0-E0B8-4F7E-8330-50F11AE6D4B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +27,17 @@ Global
 		{DD7C0513-7BA5-4B1F-8EC9-18D092FD8708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD7C0513-7BA5-4B1F-8EC9-18D092FD8708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7C0513-7BA5-4B1F-8EC9-18D092FD8708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A6C758-559C-404C-B434-858051D3C73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A6C758-559C-404C-B434-858051D3C73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A6C758-559C-404C-B434-858051D3C73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A6C758-559C-404C-B434-858051D3C73F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8628D2A7-F4A6-4245-B09F-29CFCFFE6029} = {F46D9EB4-26E9-4992-B259-3E3C5E68AD4D}
+		{DD7C0513-7BA5-4B1F-8EC9-18D092FD8708} = {D47DD9E0-E0B8-4F7E-8330-50F11AE6D4B3}
+		{18A6C758-559C-404C-B434-858051D3C73F} = {D47DD9E0-E0B8-4F7E-8330-50F11AE6D4B3}
 	EndGlobalSection
 EndGlobal

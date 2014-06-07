@@ -1,9 +1,9 @@
 ﻿namespace Marker.WPF
 {
-    using System.Drawing;
-    using System.Windows.Media;
+    using System.ComponentModel;
+    using System.Timers;
 
-    using Converters.Markdown;
+    using Marker.WPF.Components;
 
     using ScintillaNET;
 
@@ -12,6 +12,14 @@
     /// </summary>
     public partial class MainWindow
     {
+        private string html;
+
+        private BackgroundWorker worker;
+
+        private Timer timer;
+
+        private HtmlPreviewUpdater htmlPreviewUpdater;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,60 +35,24 @@
 
         private void WindowLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            this.ConfigureScintilla();
-
-            this.UpdateHtmlPreview();
-        }
-
-        private void ConfigureScintilla()
-        {
-            var scintilla = new Scintilla();
-            this.HostControl.Child = scintilla;
-            scintilla.Font = new Font("Consolas", 12);
-            scintilla.BackColor = System.Drawing.Color.FromArgb(40, 40, 40);
-            scintilla.ForeColor = System.Drawing.Color.White;
-            scintilla.Caret.Color = System.Drawing.Color.White;
-            scintilla.LineWrapping.Mode = LineWrappingMode.Word;
-            scintilla.IsBraceMatching = true;
-            scintilla.Indentation.ShowGuides = true;
-            scintilla.Indentation.SmartIndentType = SmartIndent.CPP2;
-            scintilla.Indentation.TabIndents = true;
-            scintilla.EndOfLine.Mode = EndOfLineMode.Crlf;
-            scintilla.Encoding = System.Text.Encoding.UTF8;
-            scintilla.TextChanged += this.ScintillaTextChanged;
-            scintilla.TextInserted += this.ScintillaTextInserted;
-            MarkdownLexer.Init(scintilla);
+            ScintillaConfig.ConfigureScintilla(this.HostControl);
+            ScintillaConfig.AddHandlers(this.MarkdownEditor, this.ScintillaTextInserted, this.ScintillaTextChanged);
+            
+            this.htmlPreviewUpdater = new HtmlPreviewUpdater(this.MarkdownEditor, this.HtmlPreview);
+            this.htmlPreviewUpdater.StartPreview();
         }
 
         private void ScintillaTextInserted(object sender, TextModifiedEventArgs e)
         {
-            if (e.LinesAddedCount > 0)
-            {
-                for (var i = 0; i <= e.LinesAddedCount; i++)
-                {
-                    var lineNumber = this.SourceControl.Lines.FromPosition(this.SourceControl.CurrentPos).Number + i;
-                    var linePosition = this.SourceControl.Lines[lineNumber].StartPosition;
-                    MarkdownLexer.StyleLine(this.SourceControl, linePosition);
-                }
-            }
-            else
-            {
-                MarkdownLexer.StyleLine(this.SourceControl, e.Position);
-            }
+            MarkdownSyntaxHighlighter.Highlight(this.MarkdownEditor, e.Position, e.LinesAddedCount);
         }
 
         private void ScintillaTextChanged(object sender, System.EventArgs e)
         {
-            this.UpdateHtmlPreview();
+            this.htmlPreviewUpdater.Update();
         }
 
-        private void UpdateHtmlPreview()
-        {
-            var html = MarkdownConverter.ToHtml(this.MarkdownSource.Text);
-            this.HtmlPreview.NavigateToString(html);
-        }
-
-        public Scintilla SourceControl
+        public Scintilla MarkdownEditor
         {
             get
             {

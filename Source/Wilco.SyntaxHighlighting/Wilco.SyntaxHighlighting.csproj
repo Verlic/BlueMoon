@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18A6C758-559C-404C-B434-858051D3C73F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Wilco.SyntaxHighlighter</AssemblyName>
+    <AssemblyOriginatorKeyFile>Wilco.SyntaxHighlighter.snk</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Wilco.SyntaxHighlighting</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <SignAssembly>true</SignAssembly>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\source\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>Wilco.SyntaxHighlighter.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>Wilco.SyntaxHighlighter.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Configuration\ConfiguredHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Configuration\Highlighter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\HighlighterBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\HighlighterCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\ASPXHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\CHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\CobolHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\ColdFusionHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\CSSHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\CPPHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\CSharpHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\EiffelHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\FortranHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\HaskellHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\JavaHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\JavaScriptHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\JScriptHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\MercuryHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\MSILHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\PascalHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\PerlHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\PHPHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\PythonHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\RubyHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\SQLHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\VBHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\VBSHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Highlighter\Implementation\XMLHighlighter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\ASPX\ASPXNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\CommentBlock\CommentBlockNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\CommentBlock\Entity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\CommentLine\CommentLineNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Css\CssAttributeNameNode.cs" />
+    <Compile Include="Engine\Node\Implementation\Css\CssAttributeValueNode.cs" />
+    <Compile Include="Engine\Node\Implementation\EntityCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\String\StringEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\String\StringNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Word\WordNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\MatchEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlAttributeNameNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlAttributeValueNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlCommentNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlNamespaceNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlSpecialCharNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Implementation\Xml\XmlTagNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\INode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\NodeBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\NodeCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Occurrence\Occurrence.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Occurrence\OccurrenceCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Node\Occurrence\OccurrenceEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Parser\HtmlParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Parser\IParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Parser\ParserBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Parser\RtfParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Register.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\ASPX\ASPXScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\CommentBlockScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\CommentLineScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\CSS\CssScanner.cs" />
+    <Compile Include="Engine\Scanner\Implementation\PHP\PHPScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\StringBlockScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\StringLineScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\WordScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\Implementation\XmlScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\IScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\ScannerBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Scanner\ScannerCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Tokenizer\CharTokenizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engine\Tokenizer\TokenizerBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SyntaxHighlighterProcessor.cs" />
+    <Compile Include="Web\FunctionSelector\FunctionSelector.cs" />
+    <Compile Include="Web\FunctionSelector\FunctionSelectorCSharp.cs" />
+    <Compile Include="Web\FunctionSelector\FunctionSelectorFactory.cs" />
+    <Compile Include="Web\FunctionSelector\FunctionSelectorVB.cs" />
+    <Compile Include="Web\SyntaxHighlighter.cs" />
+    <Compile Include="Web\ParseEvent.cs" />
+    <Compile Include="Web\HighlightMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\PlaceHolder\LineNumberPlaceholder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\PlaceHolder\SourceLinerPlaceholder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\SeparatorItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\SourceHeaderItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\SourceLineItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\SyntaxHighlighterHandler.cs" />
+    <Compile Include="Web\SyntaxHighlighterTemplates.cs" />
+    <Compile Include="Web\Token.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web\TokenCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Wilco.SyntaxHighlighter.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>  
+</Project>

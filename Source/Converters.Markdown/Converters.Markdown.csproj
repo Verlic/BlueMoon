@@ -30,6 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.10.0">
+      <HintPath>..\libs\TextTemplating\Microsoft.VisualStudio.TextTemplating.10.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\TextTemplating\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
+    </Reference>
     <Reference Include="MoonShine">
       <HintPath>..\libs\MoonShine.dll</HintPath>
     </Reference>
@@ -42,8 +52,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeSnippetHighlighter.cs" />
+    <Compile Include="HtmlParser.cs" />
     <Compile Include="MarkdownConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextTemplatingHelper.cs" />
+    <Compile Include="TextTemplating\PropertiesDirectiveProcessor.cs" />
+    <Compile Include="TextTemplating\PropertyData.cs" />
+    <Compile Include="TextTemplating\SimpleTemplateProcessor.cs" />
+    <Compile Include="TextTemplating\TemplateHost.cs" />
+    <Compile Include="TextTemplating\TemplatePropertyAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wilco.SyntaxHighlighting\Wilco.SyntaxHighlighting.csproj">
+      <Project>{18A6C758-559C-404C-B434-858051D3C73F}</Project>
+      <Name>Wilco.SyntaxHighlighting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
