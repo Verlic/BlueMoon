@@ -1,9 +1,7 @@
 ﻿namespace Marker.WPF
 {
-    using System.ComponentModel;
-    using System.Timers;
-
     using Marker.WPF.Components;
+    using Marker.WPF.EditorCommands;
 
     using ScintillaNET;
 
@@ -12,20 +10,16 @@
     /// </summary>
     public partial class MainWindow
     {
-        private string html;
-
-        private BackgroundWorker worker;
-
-        private Timer timer;
-
         private HtmlPreviewUpdater htmlPreviewUpdater;
+
+        private CommandBinder commandBinder;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public Scintilla MarkdownSource
+        public Scintilla MarkdownEditor
         {
             get
             {
@@ -37,7 +31,7 @@
         {
             ScintillaConfig.ConfigureScintilla(this.HostControl);
             ScintillaConfig.AddHandlers(this.MarkdownEditor, this.ScintillaTextInserted, this.ScintillaTextChanged);
-            
+            this.commandBinder = new CommandBinder(this.MarkdownEditor);
             this.htmlPreviewUpdater = new HtmlPreviewUpdater(this.MarkdownEditor, this.HtmlPreview);
             this.htmlPreviewUpdater.StartPreview();
         }
@@ -50,14 +44,6 @@
         private void ScintillaTextChanged(object sender, System.EventArgs e)
         {
             this.htmlPreviewUpdater.Update();
-        }
-
-        public Scintilla MarkdownEditor
-        {
-            get
-            {
-                return (Scintilla)this.HostControl.Child;
-            }
         }
     }
 }

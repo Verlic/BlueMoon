@@ -71,6 +71,11 @@
     <Compile Include="Components\HtmlToMarkdown.cs" />
     <Compile Include="Components\MarkdownSyntaxHighlighter.cs" />
     <Compile Include="Components\ScintillaConfig.cs" />
+    <Compile Include="EditorCommands\HeaderCommand.cs" />
+    <Compile Include="EditorCommands\ItalicCommand.cs" />
+    <Compile Include="EditorCommands\BoldCommand.cs" />
+    <Compile Include="EditorCommands\CommandBinder.cs" />
+    <Compile Include="EditorCommands\WrapperCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -104,17 +109,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <LastGenOutput>Content.html</LastGenOutput>
     </None>
-    <None Include="Templates\DefaultTheme\Master.Footer.include.tt">
-      <LastGenOutput>Master.Footer.include.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\DefaultTheme\Master.Header.include.tt">
-      <LastGenOutput>Master.Header.include.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\DefaultTheme\TableOfContents.include.tt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -124,9 +118,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="libs\SciLexer64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\DefaultTheme\styles\master.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
