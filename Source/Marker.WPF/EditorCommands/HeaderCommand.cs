@@ -17,10 +17,19 @@
 
         public void Execute(Scintilla markdownEditor)
         {
+            var originalStartPosition = markdownEditor.Selection.Start;
+
+            if (markdownEditor.Selection.Range.StartingLine.Text.StartsWith(this.wrapper))
+            {
+                return;
+            }
+            
             markdownEditor.Selection.Range.StartingLine.Text = string.Format(
                 "{0} {1} {0}",
                 this.wrapper,
                 markdownEditor.Selection.Range.StartingLine.Text);
+
+            markdownEditor.Selection.Start = originalStartPosition + wrapper.Length + 1;
         }
     }
 }

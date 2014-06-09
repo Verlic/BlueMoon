@@ -3,12 +3,13 @@
     using Marker.WPF.Components;
     using Marker.WPF.EditorCommands;
 
+    using System.Windows.Controls.Ribbon;
     using ScintillaNET;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : RibbonWindow
     {
         private HtmlPreviewUpdater htmlPreviewUpdater;
 
