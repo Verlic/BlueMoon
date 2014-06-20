@@ -22,6 +22,8 @@
 
         private MarkdownDocument document;
 
+        private bool updatingDocument;
+
         public EditorControlViewModel()
         {
         }
@@ -37,6 +39,8 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ObservableCollection<MarkdownDocument> Documents { get; set; }
+
         public MarkdownDocument Document
         {
             get
@@ -47,7 +51,10 @@
             set
             {
                 this.document = value;
+                this.updatingDocument = true;
                 this.MarkdownEditor.Text = this.document.Markdown;
+                this.updatingDocument = false;
+                this.OnPropertyChanged();
             }
         }
 
@@ -58,6 +65,8 @@
         public CopyCommand CopyCommand { get; set; }
 
         public PasteCommand PasteCommand { get; set; }
+
+        public NewCommand NewCommand { get; set; }
 
         public string HtmlPreview
         {
@@ -101,6 +110,7 @@
             this.CutCommand = new CutCommand();
             this.CopyCommand = new CopyCommand();
             this.PasteCommand = new PasteCommand();
+            this.NewCommand = new NewCommand();
         }
 
         private void HandleEditorEvents()
@@ -117,22 +127,43 @@
 
         private void MarkdownEditorKeyDown(object sender, KeyEventArgs e)
         {
-            if (!e.Control || e.KeyCode != Keys.V)
+            if (e.Control)
             {
-                return;
+                switch (e.KeyCode)
+                {
+                    case Keys.V:
+                        {
+                            if (this.PasteCommand.CanExecute(this))
+                            {
+                                this.PasteCommand.Execute(this);
+                            }
+
+                            break;
+                        }
+                    case Keys.N:
+                        {
+                            if (this.NewCommand.CanExecute(this))
+                            {
+                                this.NewCommand.Execute(this);
+                            }
+
+                            break;
+                        }
+                }
             }
 
-            if (this.PasteCommand.CanExecute(this))
-            {
-                this.PasteCommand.Execute(this);
-            }
         }
 
         private async void MarkdownEditorTextChanged(object sender, EventArgs e)
         {
             this.htmlPreviewer.Start(this.MarkdownEditor.Text);
+            if (this.updatingDocument)
+            {
+                return;
+            }
+            
             this.Document.Markdown = this.MarkdownEditor.Text;
-            if (DocumentManager.CanSave())
+            if (this.Document.HasChanges && DocumentManager.CanSave())
             {
                 await DocumentManager.SaveDocument(this.Document);
             }

@@ -23,6 +23,7 @@
 
         internal MarkdownDocument(string title)
         {
+            this.Markdown = "";
             this.Title = title;
             this.IsTemporary = true;
             this.WorkingFolder = Path.Combine(Path.GetTempPath(), "Marker", Guid.NewGuid().ToString());
@@ -110,6 +111,7 @@
 
             set
             {
+                this.HasChanges = this.markdown != value;
                 this.markdown = value;
                 this.OnPropertyChanged();
             }
