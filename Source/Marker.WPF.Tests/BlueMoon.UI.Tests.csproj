@@ -59,9 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marker.WPF\Marker.WPF.csproj">
+    <ProjectReference Include="..\Marker.WPF\BlueMoon.UI.csproj">
       <Project>{8628D2A7-F4A6-4245-B09F-29CFCFFE6029}</Project>
-      <Name>Marker.WPF</Name>
+      <Name>BlueMoon.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

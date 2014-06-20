@@ -1,0 +1,21 @@
+﻿<Window x:Class="BlueMoon.UI.Views.MainEditor.MainEditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="clr-namespace:BlueMoon.UI.Components"
+        xmlns:mainEditor="clr-namespace:BlueMoon.UI.Views.MainEditor"
+        Loaded="WindowLoaded"
+        Title="BlueMoon Editor" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+
+    <TabControl x:Name="DocumentTabs" ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}" SelectionChanged="DocumentTabs_SelectionChanged">
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Title}"></TextBlock>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <mainEditor:EditorControl x:Name="EditorControl" Document="{Binding Mode=OneWay}"></mainEditor:EditorControl>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+</Window>

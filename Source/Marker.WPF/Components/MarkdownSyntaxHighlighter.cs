@@ -1,10 +1,10 @@
-﻿namespace Marker.WPF.Components
+﻿namespace BlueMoon.UI.Components
 {
     using ScintillaNET;
 
     public class MarkdownSyntaxHighlighter
     {
-        public static void Highlight(Scintilla markdownEditor,int position, int linesAdded)
+        public static void Highlight(Scintilla markdownEditor, int position, int linesAdded)
         {
             if (linesAdded > 0)
             {

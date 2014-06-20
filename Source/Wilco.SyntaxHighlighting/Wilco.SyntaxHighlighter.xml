@@ -3206,12 +3206,12 @@
             Gets the line of source code.
             </summary>
         </member>
-        <member name="T:Wilco.Web.SyntaxHighlighting.SyntaxHighlighterHandler">
+        <member name="T:Wilco.SyntaxHighlighting.Web.SyntaxHighlighterHandler">
             <summary>
             Represents a syntax highlighter handler for ASP.NET.
             </summary>
         </member>
-        <member name="P:Wilco.Web.SyntaxHighlighting.SyntaxHighlighterHandler.IsReusable">
+        <member name="P:Wilco.SyntaxHighlighting.Web.SyntaxHighlighterHandler.IsReusable">
             <summary>
             Gets whether the handler is reusable.
             </summary>

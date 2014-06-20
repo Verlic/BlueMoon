@@ -1,4 +1,4 @@
-﻿namespace Marker.WPF.EditorCommands
+﻿namespace BlueMoon.UI.EditorCommands
 {
     public class BoldCommand : WrapperCommand
     {

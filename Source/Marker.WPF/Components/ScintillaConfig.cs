@@ -1,4 +1,4 @@
-﻿namespace Marker.WPF.Components
+﻿namespace BlueMoon.UI.Components
 {
     using System;
     using System.Drawing;
@@ -14,10 +14,8 @@
             var scintilla = new Scintilla();
             hostControl.Child = scintilla;
             scintilla.Commands.RemoveBinding(Keys.I, Keys.Control);
-            scintilla.Font = new Font("Consolas", 12);
-            scintilla.BackColor = System.Drawing.Color.FromArgb(40, 40, 40);
-            scintilla.ForeColor = System.Drawing.Color.White;
-            scintilla.Caret.Color = System.Drawing.Color.White;
+            scintilla.Commands.RemoveBinding(Keys.V, Keys.Control);
+            scintilla.Font = new Font("Segoe UI", 12);
             scintilla.LineWrapping.Mode = LineWrappingMode.Word;
             scintilla.IsBraceMatching = true;
             scintilla.Indentation.ShowGuides = true;
@@ -25,7 +23,6 @@
             scintilla.Indentation.TabIndents = true;
             scintilla.EndOfLine.Mode = EndOfLineMode.Crlf;
             scintilla.Margins[0].Width = 40;
-            scintilla.Encoding = System.Text.Encoding.UTF8;
             MarkdownLexer.Init(scintilla);
         }
 

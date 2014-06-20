@@ -1,4 +1,4 @@
-namespace Marker.WPF.EditorCommands
+namespace BlueMoon.UI.EditorCommands
 {
     using ScintillaNET;
 
@@ -41,16 +41,16 @@ namespace Marker.WPF.EditorCommands
             if (markdownEditor.Selection.Text.StartsWith(this.wrapper) && markdownEditor.Selection.Text.EndsWith(this.wrapper))
             {
                 markdownEditor.Selection.Text = markdownEditor.Selection.Text.Substring(
-                    wrapper.Length,
-                    markdownEditor.Selection.Text.Length - (2 * wrapper.Length));
+                    this.wrapper.Length,
+                    markdownEditor.Selection.Text.Length - (2 * this.wrapper.Length));
                 markdownEditor.Selection.Start = originalStartPosition;
-                markdownEditor.Selection.End = originalEndPosition - (2* wrapper.Length);
+                markdownEditor.Selection.End = originalEndPosition - (2 * this.wrapper.Length);
                 return;
             }
 
             markdownEditor.Selection.Text = string.Format("{0}{1}{0}", this.wrapper, markdownEditor.Selection.Text);
             markdownEditor.Selection.Start = originalStartPosition;
-            markdownEditor.Selection.End = originalEndPosition + (2 * wrapper.Length);
+            markdownEditor.Selection.End = originalEndPosition + (2 * this.wrapper.Length);
         }
 
         private void WrapSingleWord(Scintilla markdownEditor, int originalStartPosition)
@@ -79,15 +79,15 @@ namespace Marker.WPF.EditorCommands
             }
 
             markdownEditor.Selection.Start = startPosition;
-            markdownEditor.Selection.End = endPosition--;
+            markdownEditor.Selection.End = endPosition;
 
             if (markdownEditor.Selection.Text.StartsWith(this.wrapper) && markdownEditor.Selection.Text.EndsWith(this.wrapper))
             {
                 markdownEditor.Selection.Text = markdownEditor.Selection.Text.Substring(
-                  wrapper.Length,
-                  markdownEditor.Selection.Text.Length - (2 * wrapper.Length));
-                markdownEditor.Selection.Start = originalStartPosition - wrapper.Length;
-                markdownEditor.Selection.End = originalStartPosition - wrapper.Length;
+                  this.wrapper.Length,
+                  markdownEditor.Selection.Text.Length - (2 * this.wrapper.Length));
+                markdownEditor.Selection.Start = originalStartPosition - this.wrapper.Length;
+                markdownEditor.Selection.End = originalStartPosition - this.wrapper.Length;
                 return;
             }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Marker.WPF.Tests
+namespace BlueMoon.UI.Tests
 {
     [TestClass]
     public class UnitTest1

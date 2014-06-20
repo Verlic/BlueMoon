@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Marker.WPF
+namespace BlueMoon.UI
 {
     /// <summary>
     /// Interaction logic for RibbonBar.xaml

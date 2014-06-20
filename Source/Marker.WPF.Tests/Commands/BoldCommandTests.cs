@@ -1,17 +1,117 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Marker.WPF.Tests.Commands
+﻿namespace BlueMoon.UI.Tests.Commands
 {
-    using Marker.WPF.EditorCommands;
+    using BlueMoon.UI.EditorCommands;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using ScintillaNET;
 
     [TestClass]
     public class BoldCommandTests
     {
+        #region Fields
+
         private BoldCommand boldCommand;
 
         private Scintilla scintilla;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        [TestMethod]
+        public void BoldSingleSelectedWord()
+        {
+            string word = "bold";
+            string expected = "**bold**";
+            int startPosition = 0;
+            int endPosition = 4;
+            int expectedStartPosition = startPosition;
+            int expectedEndPosition = endPosition + 4;
+
+            this.ConfigureCommandTest(
+                word,
+                startPosition,
+                endPosition,
+                expected,
+                expectedStartPosition,
+                expectedEndPosition);
+        }
+
+        [TestMethod]
+        public void BoldSingleSelectedWordInSentence()
+        {
+            string word = "test bold this";
+            string expected = "test **bold** this";
+            int startPosition = 5;
+            int endPosition = 9;
+            int expectedStartPosition = startPosition;
+            int expectedEndPosition = endPosition + 4;
+
+            this.ConfigureCommandTest(
+                word,
+                startPosition,
+                endPosition,
+                expected,
+                expectedStartPosition,
+                expectedEndPosition);
+        }
+
+        [TestMethod]
+        public void BoldSingleWord()
+        {
+            const string Word = "bold";
+            const string Expected = "**bold**";
+            const int StartPosition = 3;
+            const int EndPosition = StartPosition;
+            const int ExpectedStartPosition = StartPosition + 2;
+            const int ExpectedEndPosition = ExpectedStartPosition;
+
+            this.ConfigureCommandTest(
+                Word,
+                StartPosition,
+                EndPosition,
+                Expected,
+                ExpectedStartPosition,
+                ExpectedEndPosition);
+        }
+
+        [TestMethod]
+        public void BoldSingleWordAfterEndOfLine()
+        {
+            string word = "this \r\nbold";
+            string expected = "this \r\n**bold**";
+            int startPosition = 10;
+            int endPosition = startPosition;
+            int expectedStartPosition = startPosition + 2;
+            int expectedEndPosition = expectedStartPosition;
+
+            this.ConfigureCommandTest(
+                word,
+                startPosition,
+                endPosition,
+                expected,
+                expectedStartPosition,
+                expectedEndPosition);
+        }
+
+        [TestMethod]
+        public void BoldSingleWordInSentence()
+        {
+            string word = "test bold this";
+            string expected = "test **bold** this";
+            int startPosition = 7;
+            int endPosition = startPosition;
+            int expectedStartPosition = startPosition + 2;
+            int expectedEndPosition = expectedStartPosition;
+            this.ConfigureCommandTest(
+                word,
+                startPosition,
+                endPosition,
+                expected,
+                expectedStartPosition,
+                expectedEndPosition);
+        }
 
         [TestInitialize]
         public void Initialize()
@@ -20,68 +120,22 @@ namespace Marker.WPF.Tests.Commands
             this.scintilla = new Scintilla();
         }
 
-        [TestMethod]
-        public void BoldSingleWord()
+        #endregion
+
+        #region Methods
+
+        private void AssertBoldCommand(string expected, int expectedStartPosition, int expectedEndPosition = -1)
         {
-            var word = "bold";
-            var expected = "**bold**";
-            var startPosition = 3;
-            var endPosition = startPosition;
-            var expectedStartPosition = startPosition + 2;
-            var expectedEndPosition = expectedStartPosition;
+            if (expectedEndPosition == -1)
+            {
+                expectedEndPosition = expectedStartPosition;
+            }
 
-            this.ConfigureCommandTest(word, startPosition, endPosition, expected, expectedStartPosition, expectedEndPosition);
-        }
+            this.boldCommand.Execute(this.scintilla);
 
-        [TestMethod]
-        public void BoldSingleSelectedWord()
-        {
-            var word = "bold";
-            var expected = "**bold**";
-            var startPosition = 0;
-            var endPosition = 4;
-            var expectedStartPosition = startPosition;
-            var expectedEndPosition = endPosition + 4;
-
-            this.ConfigureCommandTest(word, startPosition, endPosition, expected, expectedStartPosition, expectedEndPosition);
-        }
-
-        [TestMethod]
-        public void BoldSingleWordInSentence()
-        {
-            var word = "test bold this";
-            var expected = "test **bold** this";
-            var startPosition = 7;
-            var endPosition = startPosition;
-            var expectedStartPosition = startPosition + 2;
-            var expectedEndPosition = expectedStartPosition;
-            this.ConfigureCommandTest(word, startPosition, endPosition, expected, expectedStartPosition, expectedEndPosition);
-        }
-
-        [TestMethod]
-        public void BoldSingleSelectedWordInSentence()
-        {
-            var word = "test bold this";
-            var expected = "test **bold** this";
-            var startPosition = 5;
-            var endPosition = 9;
-            var expectedStartPosition = startPosition;
-            var expectedEndPosition = endPosition + 4;
-
-            this.ConfigureCommandTest(word, startPosition, endPosition, expected, expectedStartPosition, expectedEndPosition);
-        }
-
-        [TestMethod]
-        public void BoldSingleWordAfterEndOfLine()
-        {
-            var word = "this \r\nbold";
-            var expected = "this \r\n**bold**";
-            var startPosition = 10;
-            var endPosition = startPosition;
-            var expectedStartPosition = startPosition + 2;
-            var expectedEndPosition = expectedStartPosition;
-
-            this.ConfigureCommandTest(word, startPosition, endPosition, expected, expectedStartPosition, expectedEndPosition);
+            Assert.AreEqual(expected, this.scintilla.Text);
+            Assert.AreEqual(expectedStartPosition, this.scintilla.Selection.Start);
+            Assert.AreEqual(expectedEndPosition, this.scintilla.Selection.End);
         }
 
         private void ConfigureCommandTest(
@@ -98,18 +152,6 @@ namespace Marker.WPF.Tests.Commands
             this.AssertBoldCommand(expected, expectedStartPosition, expectedEndPosition);
         }
 
-        private void AssertBoldCommand(string expected, int expectedStartPosition, int expectedEndPosition = -1)
-        {
-            if (expectedEndPosition == -1)
-            {
-                expectedEndPosition = expectedStartPosition;
-            }
-
-            this.boldCommand.Execute(this.scintilla);
-
-            Assert.AreEqual(expected, this.scintilla.Text);
-            Assert.AreEqual(expectedStartPosition, this.scintilla.Selection.Start);
-            Assert.AreEqual(expectedEndPosition, this.scintilla.Selection.End);
-        }
+        #endregion
     }
 }

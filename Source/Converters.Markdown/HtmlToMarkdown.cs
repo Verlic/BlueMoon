@@ -1,8 +1,7 @@
-﻿namespace Marker.WPF.Components
+﻿namespace Converters.Markdown
 {
     using System.Threading.Tasks;
-
-    using Converters.Markdown;
+    using System.Web;
 
     public class HtmlToMarkdown
     {
@@ -13,9 +12,10 @@
             this.templatePath = templatePath;
         }
 
-        public async Task<string> ToHtml(string markdown)
+        public Task<string> ToHtml(string markdown)
         {
-            return await MarkdownConverter.ToHtml(markdown, this.templatePath);
+            var convertedHtml = MarkdownConverter.ToHtml(HttpUtility.HtmlEncode(markdown), this.templatePath);
+            return convertedHtml;
         }
     }
 }

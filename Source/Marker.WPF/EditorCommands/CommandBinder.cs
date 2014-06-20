@@ -1,5 +1,6 @@
-﻿namespace Marker.WPF.EditorCommands
+﻿namespace BlueMoon.UI.EditorCommands
 {
+    using System.Globalization;
     using System.Windows.Forms;
 
     using ScintillaNET;
@@ -8,10 +9,10 @@
     {
         public CommandBinder(Scintilla markdownEditor)
         {
-            markdownEditor.KeyDown += markdownEditor_KeyDown;
+            markdownEditor.KeyDown += this.MarkdownEditorKeyDown;
         }
 
-        void markdownEditor_KeyDown(object sender, KeyEventArgs e)
+        private void MarkdownEditorKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control)
             {
@@ -22,18 +23,20 @@
                             new BoldCommand().Execute((Scintilla)sender);
                             break;
                         }
+
                     case Keys.I:
                         {
                             new ItalicCommand().Execute((Scintilla)sender);
                             break;
                         }
+
                     case Keys.D1:
                     case Keys.D2:
                     case Keys.D3:
                     case Keys.D4:
                     case Keys.D5:
                         {
-                            new HeaderCommand(int.Parse(e.KeyCode.ToString()[e.KeyCode.ToString().Length - 1].ToString())).Execute(
+                            new HeaderCommand(int.Parse(e.KeyCode.ToString()[e.KeyCode.ToString().Length - 1].ToString(CultureInfo.InvariantCulture))).Execute(
                                 (Scintilla)sender);
                             break;
                         }

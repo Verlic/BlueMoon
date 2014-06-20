@@ -1,4 +1,4 @@
-﻿namespace Marker.WPF.EditorCommands
+﻿namespace BlueMoon.UI.EditorCommands
 {
     using ScintillaNET;
 
@@ -29,7 +29,7 @@
                 this.wrapper,
                 markdownEditor.Selection.Range.StartingLine.Text);
 
-            markdownEditor.Selection.Start = originalStartPosition + wrapper.Length + 1;
+            markdownEditor.Selection.Start = originalStartPosition + this.wrapper.Length + 1;
         }
     }
 }

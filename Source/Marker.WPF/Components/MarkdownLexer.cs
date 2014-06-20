@@ -1,4 +1,4 @@
-﻿namespace Marker.WPF
+﻿namespace BlueMoon.UI.Components
 {
     using System.Drawing;
     using System.Text.RegularExpressions;
@@ -26,19 +26,19 @@
         #endregion
 
         #region Style Regex
-        private static Regex regexBackslashEscape = new Regex(@"^(\\)(.)");
-        private static Regex regexItalic = new Regex(@"^(\*|_)(?!(\*|_|\t|\040))(.+?)(\*|_)");
-        private static Regex regexBold = new Regex(@"^(\*\*|__)(?!(\*|_|\t|\040))(.+?)(\*\*|__)");
-        private static Regex regexItalicBold = new Regex(@"^(\*\*\*|___)(?!(\*|_|\t|\040))(.+?)(\*\*\*|___)");
-        private static Regex regexImage = new Regex(@"^!\[.+?]\(.+?\)");
-        private static Regex regexLink = new Regex(@"^\[.+?\]\(.+?\)");
-        private static Regex regexHeadingA = new Regex(@"^(.+?\r\n)(===+|---+)\s*$");
-        private static Regex regexHeadingB = new Regex(@"^(#+)(.+?[^#$&])(#*)\s*$");
-        private static Regex regexList = new Regex(@"^(\*|\+|\-|\d+\.)(\t|\040)(?=.*)");
-        private static Regex regexBlockQuote = new Regex(@"^\s*>(?=.*)");
-        private static Regex regexBlockCode = new Regex(@"^(````)(.+)");
-        private static Regex regexHorizontalRule = new Regex(@"^((\*\*\*+)|(\r?\n?)(---+))\s*$");
-        private static Regex regexComment = new Regex(@"^((<!--)|(-->)|(</)|(<)|(/>)|(>))");
+        private static readonly Regex RegexBackslashEscape = new Regex(@"^(\\)(.)");
+        private static readonly Regex RegexItalic = new Regex(@"^(\*|_)(?!(\*|_|\t|\040))(.+?)(\*|_)");
+        private static readonly Regex RegexBold = new Regex(@"^(\*\*|__)(?!(\*|_|\t|\040))(.+?)(\*\*|__)");
+        private static readonly Regex RegexItalicBold = new Regex(@"^(\*\*\*|___)(?!(\*|_|\t|\040))(.+?)(\*\*\*|___)");
+        private static readonly Regex RegexImage = new Regex(@"^!\[.+?]\(.+?\)");
+        private static readonly Regex RegexLink = new Regex(@"^\[.+?\]\(.+?\)");
+        private static readonly Regex RegexHeadingA = new Regex(@"^(.+?\r\n)(===+|---+)\s*$");
+        private static readonly Regex RegexHeadingB = new Regex(@"^(#+)(.+?[^#$&])(#*)\s*$");
+        private static readonly Regex RegexList = new Regex(@"^(\*|\+|\-|\d+\.)(\t|\040)(?=.*)");
+        private static readonly Regex RegexBlockQuote = new Regex(@"^\s*>(?=.*)");
+        private static readonly Regex RegexBlockCode = new Regex(@"^(````)(.+)");
+        private static readonly Regex RegexHorizontalRule = new Regex(@"^((\*\*\*+)|(\r?\n?)(---+))\s*$");
+        private static readonly Regex RegexComment = new Regex(@"^((<!--)|(-->)|(</)|(<)|(/>)|(>))");
         #endregion
 
         public static void Init(Scintilla scintillaControl)
@@ -47,12 +47,12 @@
             scintillaControl.ConfigurationManager.Language = string.Empty;
             scintillaControl.Lexing.LexerName = "container";
             scintillaControl.Lexing.Lexer = Lexer.Container;
-            scintillaControl.Font = new Font("Consolas", 12);
+            scintillaControl.Font = new Font("Segoe UI", 12);
             scintillaControl.Indentation.TabWidth = 3;
             
 
-            scintillaControl.Styles[StyleDefault].ForeColor = Color.White;
-            scintillaControl.Styles[StyleBraceLight].ForeColor = Color.White;
+            scintillaControl.Styles[StyleDefault].ForeColor = Color.Black;
+            scintillaControl.Styles[StyleBraceLight].ForeColor = Color.Black;
             scintillaControl.Styles[StyleBraceBad].ForeColor = Color.FromArgb(250, 40, 115);
 
             scintillaControl.Styles[StyleLineNumber].BackColor = Color.FromArgb(40, 40, 40);
@@ -63,20 +63,18 @@
 
 
             scintillaControl.Styles[StyleItalic].Italic = true;
-            scintillaControl.Styles[StyleItalic].ForeColor = Color.FromArgb(230, 220, 116);
-            scintillaControl.Styles[StyleBold].ForeColor = Color.FromArgb(230, 220, 116);
             scintillaControl.Styles[StyleBold].Bold = true;
             
             scintillaControl.Styles[StyleItalicBold].Italic = true;
             scintillaControl.Styles[StyleItalicBold].Bold = true;
-            scintillaControl.Styles[StyleImage].ForeColor = Color.FromArgb(250, 40, 115);
-            scintillaControl.Styles[StyleLink].ForeColor = Color.FromArgb(250, 40, 115);
-            scintillaControl.Styles[StyleHeading].ForeColor = Color.FromArgb(100, 220, 240);
+            scintillaControl.Styles[StyleImage].ForeColor = Color.FromArgb(240, 125, 50);
+            scintillaControl.Styles[StyleLink].ForeColor = Color.FromArgb(0, 0, 255);
+            scintillaControl.Styles[StyleHeading].ForeColor = Color.FromArgb(30, 80, 120);
             scintillaControl.Styles[StyleHeading].Bold = true;
             
             scintillaControl.Styles[StyleList].ForeColor = Color.Gray;
-            scintillaControl.Styles[StyleBlockQuote].BackColor = Color.FromArgb(230, 220, 116);
-            scintillaControl.Styles[StyleBlockCode].ForeColor = Color.FromArgb(230, 220, 116);
+            scintillaControl.Styles[StyleBlockQuote].BackColor = Color.FromArgb(45, 145, 175);
+            scintillaControl.Styles[StyleBlockCode].ForeColor = Color.FromArgb(45, 145, 175);
             scintillaControl.Styles[StyleHorizontalRule].ForeColor = Color.FromArgb(250, 40, 115);
             scintillaControl.Styles[StyleComment].ForeColor = Color.FromArgb(117, 113, 94);
         }
@@ -112,19 +110,19 @@
         public static void StyleText(Scintilla scintillaControl, string textToStyle, int lineStartPosition)
         {
             int currentPosition = 0;
-            while (currentPosition < textToStyle.Length)
+            while (currentPosition <= textToStyle.Length)
             {
                 string textToEndOfLine = textToStyle.Substring(currentPosition, textToStyle.Length - currentPosition);
                 int matchLenght = 1;
                 int styleId = StyleDefault;
 
-                if (regexBackslashEscape.IsMatch(textToEndOfLine))
+                if (RegexBackslashEscape.IsMatch(textToEndOfLine))
                 {
-                    matchLenght = regexBackslashEscape.Match(textToEndOfLine).Length;
+                    matchLenght = RegexBackslashEscape.Match(textToEndOfLine).Length;
                 }
-                else if (regexItalic.IsMatch(textToEndOfLine))
+                else if (RegexItalic.IsMatch(textToEndOfLine))
                 {
-                    Match italicMatch = regexItalic.Match(textToEndOfLine);
+                    Match italicMatch = RegexItalic.Match(textToEndOfLine);
 
                     // style to StyleDefault the opening character
                     SetStyle(scintillaControl, lineStartPosition + currentPosition, italicMatch.Groups[1].Length, StyleDefault);
@@ -138,9 +136,9 @@
                     matchLenght = italicMatch.Groups[4].Length;
                     styleId = StyleDefault;
                 }
-                else if (regexBold.IsMatch(textToEndOfLine))
+                else if (RegexBold.IsMatch(textToEndOfLine))
                 {
-                    Match boldMatch = regexBold.Match(textToEndOfLine);
+                    Match boldMatch = RegexBold.Match(textToEndOfLine);
 
                     // style to StyleDefault the opening character
                     SetStyle(scintillaControl, lineStartPosition + currentPosition, boldMatch.Groups[1].Length, StyleBold);
@@ -154,9 +152,9 @@
                     matchLenght = boldMatch.Groups[4].Length;
                     styleId = StyleBold;
                 }
-                else if (regexItalicBold.IsMatch(textToEndOfLine))
+                else if (RegexItalicBold.IsMatch(textToEndOfLine))
                 {
-                    Match italicBoldMatch = regexItalicBold.Match(textToEndOfLine);
+                    Match italicBoldMatch = RegexItalicBold.Match(textToEndOfLine);
 
                     // style to StyleDefault the opening character
                     SetStyle(scintillaControl, lineStartPosition + currentPosition, italicBoldMatch.Groups[1].Length, StyleDefault);
@@ -170,19 +168,19 @@
                     matchLenght = italicBoldMatch.Groups[4].Length;
                     styleId = StyleDefault;
                 }
-                else if (regexImage.IsMatch(textToEndOfLine))
+                else if (RegexImage.IsMatch(textToEndOfLine))
                 {
-                    matchLenght = regexImage.Match(textToEndOfLine).Length;
+                    matchLenght = RegexImage.Match(textToEndOfLine).Length;
                     styleId = StyleImage;
                 }
-                else if (regexLink.IsMatch(textToEndOfLine))
+                else if (RegexLink.IsMatch(textToEndOfLine))
                 {
-                    matchLenght = regexLink.Match(textToEndOfLine).Length;
+                    matchLenght = RegexLink.Match(textToEndOfLine).Length;
                     styleId = StyleLink;
                 }
-                else if (regexHeadingA.IsMatch(textToEndOfLine) && currentPosition == 0)
+                else if (RegexHeadingA.IsMatch(textToEndOfLine) && currentPosition == 0)
                 {
-                    Match headingMatch = regexHeadingA.Match(textToEndOfLine);
+                    Match headingMatch = RegexHeadingA.Match(textToEndOfLine);
 
                     // style to StyleDefault the content
                     SetStyle(scintillaControl, lineStartPosition + currentPosition, headingMatch.Groups[1].Length, StyleHeading);
@@ -192,9 +190,9 @@
                     matchLenght = headingMatch.Groups[2].Length;
                     styleId = StyleHeading;
                 }
-                else if (regexHeadingB.IsMatch(textToEndOfLine) && currentPosition == 0)
+                else if (RegexHeadingB.IsMatch(textToEndOfLine) && currentPosition == 0)
                 {
-                    Match headingMatch = regexHeadingB.Match(textToEndOfLine);
+                    Match headingMatch = RegexHeadingB.Match(textToEndOfLine);
 
                     // style to StyleHeading the first set of #
                     SetStyle(scintillaControl, lineStartPosition + currentPosition, headingMatch.Groups[1].Length, StyleHeading);
@@ -208,29 +206,29 @@
                     matchLenght = headingMatch.Groups[3].Length;
                     styleId = StyleHeading;
                 }
-                else if (regexList.IsMatch(textToEndOfLine) && currentPosition == 0)
+                else if (RegexList.IsMatch(textToEndOfLine) && currentPosition == 0)
                 {
-                    matchLenght = regexList.Match(textToEndOfLine).Length;
+                    matchLenght = RegexList.Match(textToEndOfLine).Length;
                     styleId = StyleList;
                 }
-                else if (regexBlockQuote.IsMatch(textToEndOfLine) && currentPosition == 0)
+                else if (RegexBlockQuote.IsMatch(textToEndOfLine) && currentPosition == 0)
                 {
-                    matchLenght = regexBlockQuote.Match(textToEndOfLine).Length;
+                    matchLenght = RegexBlockQuote.Match(textToEndOfLine).Length;
                     styleId = StyleBlockQuote;
                 }
-                else if (regexBlockCode.IsMatch(textToEndOfLine))
+                else if (RegexBlockCode.IsMatch(textToEndOfLine))
                 {
-                    matchLenght = regexBlockCode.Match(textToEndOfLine).Length;
+                    matchLenght = RegexBlockCode.Match(textToEndOfLine).Length;
                     styleId = StyleBlockCode;
                 }
-                else if (regexHorizontalRule.IsMatch(textToEndOfLine) && currentPosition == 0)
+                else if (RegexHorizontalRule.IsMatch(textToEndOfLine) && currentPosition == 0)
                 {
-                    matchLenght = regexHorizontalRule.Match(textToEndOfLine).Length;
+                    matchLenght = RegexHorizontalRule.Match(textToEndOfLine).Length;
                     styleId = StyleHorizontalRule;
                 }
-                else if (regexComment.IsMatch(textToEndOfLine))
+                else if (RegexComment.IsMatch(textToEndOfLine))
                 {
-                    matchLenght = regexComment.Match(textToEndOfLine).Length;
+                    matchLenght = RegexComment.Match(textToEndOfLine).Length;
                     styleId = StyleComment;
                 }
 

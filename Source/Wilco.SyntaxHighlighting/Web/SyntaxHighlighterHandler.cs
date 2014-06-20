@@ -1,14 +1,14 @@
-using System;
-using System.IO;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-
-using Wilco.SyntaxHighlighting;
-using System.Web.UI.WebControls;
-
-namespace Wilco.Web.SyntaxHighlighting
+namespace Wilco.SyntaxHighlighting.Web
 {
+    using System.IO;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using Wilco.SyntaxHighlighting;
+    using Wilco.Web.SyntaxHighlighting;
+
     /// <summary>
     /// Represents a syntax highlighter handler for ASP.NET.
     /// </summary>
@@ -25,17 +25,18 @@ namespace Wilco.Web.SyntaxHighlighting
             }
         }
 
-        public SyntaxHighlighterHandler()
-        {
-            //
-        }
-
         public void ProcessRequest(HttpContext context)
         {
-            string absoluteFilePath = context.Server.MapPath(context.Request.FilePath);
-            string extension = Path.GetExtension(absoluteFilePath).Substring(1);
+            var absoluteFilePath = context.Server.MapPath(context.Request.FilePath);
+            var fileExtension = Path.GetExtension(absoluteFilePath);
+            if (fileExtension == null)
+            {
+                return;
+            }
 
-            string language = "C#"; // Default language.
+            var extension = fileExtension.Substring(1);
+
+            var language = "C#"; // Default language.
 
             foreach (HighlighterBase h in Register.Instance.Highlighters)
             {
@@ -46,27 +47,29 @@ namespace Wilco.Web.SyntaxHighlighting
                 }
             }
             
-            Page page = new Page();
+            var page = new Page();
             page.Controls.Add(new LiteralControl(@"<?xml version=""1.0""?>
 <!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN"" ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">
 <html>"));
 
-            HtmlHead header = new HtmlHead();
+            var header = new HtmlHead();
             page.Controls.Add(header);
             header.Title = "Source for " + Path.GetFileName(absoluteFilePath);
 
-            PlaceHolder body = new PlaceHolder();
+            var body = new PlaceHolder();
             page.Controls.Add(body);
 
             page.Controls.Add(new LiteralControl(@"</body>
 </html>"));
 
-            SyntaxHighlighter highlighter = new SyntaxHighlighter();
-            highlighter.Language = language;
-            highlighter.Mode = HighlightMode.Source;
-            highlighter.Text = File.ReadAllText(absoluteFilePath);
-            body.Controls.Add(highlighter);
+            var highlighter = new SyntaxHighlighter
+                                  {
+                                      Language = language,
+                                      Mode = HighlightMode.Source,
+                                      Text = File.ReadAllText(absoluteFilePath)
+                                  };
 
+            body.Controls.Add(highlighter);
             ((IHttpHandler)page).ProcessRequest(context);
         }
     }
