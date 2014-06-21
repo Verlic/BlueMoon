@@ -26,7 +26,7 @@
                 var result = MessageBox.Show(
                     string.Format("Want to save the changes to {0}?", currentDocument.Title),
                     "BlueMoon",
-                    MessageBoxButton.YesNoCancel);
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.Cancel)
                 {

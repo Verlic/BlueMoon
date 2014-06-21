@@ -1,15 +1,41 @@
 ﻿namespace BlueMoon.UI.EditorCommands
 {
+    using System.IO;
+    using System.Windows;
+
+    using BlueMoon.UI.Views.ImageDialog;
+    using BlueMoon.UI.Views.MainEditor;
+
     public class PasteImageCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public override void Execute(object parameter)
         {
-            throw new System.NotImplementedException();
+            var viewModel = parameter as EditorControlViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            var directory = Path.Combine(viewModel.Document.WorkingFolder, "images");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var dialog = new ImageDialogView(viewModel.Document);
+            var result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                var markdownImage = string.Format("![{0}](Images/{0}.png?raw=true)", dialog.FileName);
+                dialog.Image.Save(dialog.Destination);
+                viewModel.InsertImage(markdownImage);
+            }
         }
     }
 }

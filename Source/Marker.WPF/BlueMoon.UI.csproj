@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Components\DocumentTitleConverter.cs" />
+    <Compile Include="Components\DrawingImageExtension.cs" />
     <Compile Include="Components\WebBrowserHelper.cs" />
     <Compile Include="EditorCommands\CloseTabCommand.cs" />
     <Compile Include="EditorCommands\CommandBase.cs" />
@@ -73,12 +74,17 @@
     <Compile Include="EditorCommands\PastePlainTextCommand.cs" />
     <Compile Include="EditorCommands\PasteRichTextCommand.cs" />
     <Compile Include="EditorCommands\PasteTypeFactory.cs" />
+    <Compile Include="EditorCommands\SaveDocumentCommand.cs" />
     <Compile Include="EditorCommands\SwitchTabBackCommand.cs" />
     <Compile Include="EditorCommands\SwitchTabCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RibbonBar.xaml.cs">
       <DependentUpon>RibbonBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ImageDialog\ImageDialogView.xaml.cs">
+      <DependentUpon>ImageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageDialog\ImageDialogViewModel.cs" />
     <Compile Include="Views\MainEditor\MainEditorView.xaml.cs">
       <DependentUpon>MainEditorView.xaml</DependentUpon>
     </Compile>
@@ -95,6 +101,10 @@
     <Compile Include="EditorCommands\WrapperCommand.cs" />
     <Compile Include="Views\MainEditor\EditorControlViewModel.cs" />
     <Page Include="RibbonBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageDialog\ImageDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

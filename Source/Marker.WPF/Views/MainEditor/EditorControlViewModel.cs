@@ -77,6 +77,8 @@
 
         public SwitchTabBackCommand SwitchTabBackCommand { get; set; }
 
+        public SaveDocumentCommand SaveDocumentCommand { get; set; }
+
         public string HtmlPreview
         {
             get
@@ -123,6 +125,7 @@
             this.CloseTabCommand = new CloseTabCommand();
             this.SwitchTabCommand = new SwitchTabCommand();
             this.SwitchTabBackCommand = new SwitchTabBackCommand();
+            this.SaveDocumentCommand = new SaveDocumentCommand();
         }
 
         private void HandleEditorEvents()
@@ -162,6 +165,12 @@
                             commandToExecute = this.CloseTabCommand;
                             break;
                         }
+
+                    case Keys.S:
+                        {
+                            commandToExecute = this.SaveDocumentCommand;
+                            break;
+                        }
                     case Keys.Tab:
                         {
                             if (e.Shift)
@@ -184,7 +193,7 @@
             }
         }
 
-        private async void MarkdownEditorTextChanged(object sender, EventArgs e)
+        private void MarkdownEditorTextChanged(object sender, EventArgs e)
         {
             this.htmlPreviewer.Start(this.MarkdownEditor.Text);
             if (this.updatingDocument)
@@ -193,15 +202,16 @@
             }
             
             this.Document.Markdown = this.MarkdownEditor.Text;
-            if (this.Document.HasChanges && DocumentManager.CanSave())
-            {
-                await DocumentManager.SaveDocument(this.Document);
-            }
         }
 
         private void UpdateHtml(string html)
         {
             this.HtmlPreview = html;
+        }
+
+        public void InsertImage(string markdownImage)
+        {
+            this.MarkdownEditor.InsertText(this.MarkdownEditor.CurrentPos, markdownImage);
         }
     }
 }
