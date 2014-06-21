@@ -73,6 +73,8 @@
     <Compile Include="EditorCommands\PastePlainTextCommand.cs" />
     <Compile Include="EditorCommands\PasteRichTextCommand.cs" />
     <Compile Include="EditorCommands\PasteTypeFactory.cs" />
+    <Compile Include="EditorCommands\SwitchTabBackCommand.cs" />
+    <Compile Include="EditorCommands\SwitchTabCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RibbonBar.xaml.cs">
       <DependentUpon>RibbonBar.xaml</DependentUpon>

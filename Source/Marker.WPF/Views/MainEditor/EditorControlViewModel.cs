@@ -73,6 +73,10 @@
 
         public CloseTabCommand CloseTabCommand { get; set; }
 
+        public SwitchTabCommand SwitchTabCommand { get; set; }
+
+        public SwitchTabBackCommand SwitchTabBackCommand { get; set; }
+
         public string HtmlPreview
         {
             get
@@ -117,6 +121,8 @@
             this.PasteCommand = new PasteCommand();
             this.NewCommand = new NewCommand();
             this.CloseTabCommand = new CloseTabCommand();
+            this.SwitchTabCommand = new SwitchTabCommand();
+            this.SwitchTabBackCommand = new SwitchTabBackCommand();
         }
 
         private void HandleEditorEvents()
@@ -154,6 +160,19 @@
                     case Keys.W:
                         {
                             commandToExecute = this.CloseTabCommand;
+                            break;
+                        }
+                    case Keys.Tab:
+                        {
+                            if (e.Shift)
+                            {
+                                commandToExecute = this.SwitchTabBackCommand;
+                            }
+                            else
+                            {
+                                commandToExecute = this.SwitchTabCommand;    
+                            }
+                            
                             break;
                         }
                 }

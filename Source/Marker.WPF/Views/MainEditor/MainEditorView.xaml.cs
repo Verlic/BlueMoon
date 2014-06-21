@@ -21,8 +21,6 @@
             this.InitializeComponent();
         }
 
-        
-
         public EditorControlViewModel DocumentViewModel
         {
             get
@@ -57,15 +55,15 @@
             this.commandBinder = new CommandBinder(this.MarkdownEditor);
             this.DocumentViewModel = new EditorControlViewModel(this.MarkdownEditor, documents[0])
                                          {
-                                             Documents
-                                                 =
-                                                 documents
+                                             Documents = documents
                                          };
             
             this.DocumentTabs.ItemsSource = this.DocumentViewModel.Documents;
             this.DocumentTabs.SelectedItem = this.DocumentViewModel.Documents[0];
             this.AddInputBinding(this.DocumentViewModel.PasteCommand, Key.V, ModifierKeys.Control);
             this.AddInputBinding(this.DocumentViewModel.NewCommand, Key.N, ModifierKeys.Control);
+            this.AddInputBinding(this.DocumentViewModel.CloseTabCommand, Key.W, ModifierKeys.Control);
+            this.AddInputBinding(this.DocumentViewModel.SwitchTabCommand, Key.Tab, ModifierKeys.Control);
             this.DocumentViewModel.UpdateCommandStatus();
         }
 
@@ -93,7 +91,11 @@
 
         private void AddInputBinding(ICommand command, Key key, ModifierKeys modifier)
         {
-            var inputBinding = new InputBinding(command, new KeyGesture(key, modifier));
+            var inputBinding = new InputBinding(command, new KeyGesture(key, modifier))
+                                   {
+                                       CommandParameter = this.DocumentViewModel
+                                   };
+
             this.InputBindings.Add(inputBinding);
         }
     }
