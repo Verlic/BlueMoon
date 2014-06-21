@@ -5,6 +5,9 @@
         Loaded="WindowLoaded"
         x:Name="EditorWindow"
         Title="BlueMoon Editor" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <components:DocumentTitleConverter x:Key="documentTitleConverter"></components:DocumentTitleConverter>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -13,7 +16,14 @@
         <TabControl x:Name="DocumentTabs" Grid.Row="0" ItemsSource="{Binding Documents}" SelectedItem="{Binding Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DocumentTabsSelectionChanged">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}"></TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource documentTitleConverter}">
+                                <Binding Path="Title"></Binding>
+                                <Binding Path="HasChanges"></Binding>
+                            </MultiBinding> 
+                        </TextBlock.Text>
+                    </TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>

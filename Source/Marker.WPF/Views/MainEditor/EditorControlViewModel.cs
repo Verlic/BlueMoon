@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Forms;
+    using System.Windows.Input;
 
     using BlueMoon.DocumentManager;
     using BlueMoon.UI.Annotations;
@@ -13,6 +14,8 @@
     using Converters.Markdown;
 
     using ScintillaNET;
+
+    using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
     public class EditorControlViewModel : INotifyPropertyChanged
     {
@@ -68,6 +71,8 @@
 
         public NewCommand NewCommand { get; set; }
 
+        public CloseTabCommand CloseTabCommand { get; set; }
+
         public string HtmlPreview
         {
             get
@@ -111,6 +116,7 @@
             this.CopyCommand = new CopyCommand();
             this.PasteCommand = new PasteCommand();
             this.NewCommand = new NewCommand();
+            this.CloseTabCommand = new CloseTabCommand();
         }
 
         private void HandleEditorEvents()
@@ -127,31 +133,36 @@
 
         private void MarkdownEditorKeyDown(object sender, KeyEventArgs e)
         {
+            ICommand commandToExecute = null;
+
             if (e.Control)
             {
                 switch (e.KeyCode)
                 {
                     case Keys.V:
                         {
-                            if (this.PasteCommand.CanExecute(this))
-                            {
-                                this.PasteCommand.Execute(this);
-                            }
-
+                            commandToExecute = this.PasteCommand;
                             break;
                         }
+
                     case Keys.N:
                         {
-                            if (this.NewCommand.CanExecute(this))
-                            {
-                                this.NewCommand.Execute(this);
-                            }
+                            commandToExecute = this.NewCommand;
+                            break;
+                        }
 
+                    case Keys.W:
+                        {
+                            commandToExecute = this.CloseTabCommand;
                             break;
                         }
                 }
             }
 
+            if (commandToExecute != null && commandToExecute.CanExecute(this))
+            {
+                commandToExecute.Execute(this);
+            }
         }
 
         private async void MarkdownEditorTextChanged(object sender, EventArgs e)

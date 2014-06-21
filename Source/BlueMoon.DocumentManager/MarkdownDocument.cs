@@ -23,9 +23,10 @@
 
         internal MarkdownDocument(string title)
         {
-            this.Markdown = "";
+            this.Markdown = string.Empty;
             this.Title = title;
             this.IsTemporary = true;
+            this.hasChanges = false;
             this.WorkingFolder = Path.Combine(Path.GetTempPath(), "Marker", Guid.NewGuid().ToString());
             this.DocumentPath = string.Format("{0}\\{1}.md", this.WorkingFolder, title);
         }
