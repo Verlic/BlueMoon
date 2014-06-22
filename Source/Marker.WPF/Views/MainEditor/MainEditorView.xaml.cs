@@ -4,8 +4,8 @@
     using System.Windows.Input;
 
     using BlueMoon.DocumentManager;
+    using BlueMoon.UI.Commands.EditorCommands;
     using BlueMoon.UI.Components;
-    using BlueMoon.UI.EditorCommands;
 
     using ScintillaNET;
 
@@ -47,7 +47,6 @@
             var documents = new ObservableCollection<MarkdownDocument>
                                  {
                                      DocumentManager.StartNewDocument(),
-                                     DocumentManager.StartNewDocument()
                                  };
 
             ScintillaConfig.ConfigureScintilla(this.HostControl);
@@ -64,6 +63,7 @@
             this.AddInputBinding(this.DocumentViewModel.NewCommand, Key.N, ModifierKeys.Control);
             this.AddInputBinding(this.DocumentViewModel.CloseTabCommand, Key.W, ModifierKeys.Control);
             this.AddInputBinding(this.DocumentViewModel.SwitchTabCommand, Key.Tab, ModifierKeys.Control);
+            this.AddInputBinding(this.DocumentViewModel.OpenDocumentCommand, Key.O, ModifierKeys.Control);
             this.DocumentViewModel.UpdateCommandStatus();
         }
 
@@ -97,6 +97,14 @@
                                    };
 
             this.InputBindings.Add(inputBinding);
+        }
+
+        private void EditorWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (var document in this.DocumentViewModel.Documents)
+            {
+                DocumentManager.CloseDocument(document);
+            }
         }
     }
 }

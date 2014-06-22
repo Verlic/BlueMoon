@@ -61,22 +61,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DocumentCommands\CloseTabCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\NewCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\OpenDocumentCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\SaveDocumentCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\SwitchTabBackCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\SwitchTabCommand.cs" />
+    <Compile Include="Commands\EditorCommands\BoldCommand.cs" />
+    <Compile Include="Commands\EditorCommands\CommandBinder.cs" />
+    <Compile Include="Commands\EditorCommands\CopyCommand.cs" />
+    <Compile Include="Commands\EditorCommands\CutCommand.cs" />
+    <Compile Include="Commands\EditorCommands\HeaderCommand.cs" />
+    <Compile Include="Commands\EditorCommands\ItalicCommand.cs" />
+    <Compile Include="Commands\EditorCommands\PasteCommand.cs" />
+    <Compile Include="Commands\EditorCommands\PasteImageCommand.cs" />
+    <Compile Include="Commands\EditorCommands\PastePlainTextCommand.cs" />
+    <Compile Include="Commands\EditorCommands\PasteRichTextCommand.cs" />
+    <Compile Include="Commands\EditorCommands\PasteTypeFactory.cs" />
+    <Compile Include="Commands\EditorCommands\WrapperCommand.cs" />
     <Compile Include="Components\DocumentTitleConverter.cs" />
     <Compile Include="Components\DrawingImageExtension.cs" />
     <Compile Include="Components\WebBrowserHelper.cs" />
-    <Compile Include="EditorCommands\CloseTabCommand.cs" />
-    <Compile Include="EditorCommands\CommandBase.cs" />
-    <Compile Include="EditorCommands\NewCommand.cs" />
-    <Compile Include="EditorCommands\PasteCommand.cs" />
-    <Compile Include="EditorCommands\CopyCommand.cs" />
-    <Compile Include="EditorCommands\CutCommand.cs" />
-    <Compile Include="EditorCommands\PasteImageCommand.cs" />
-    <Compile Include="EditorCommands\PastePlainTextCommand.cs" />
-    <Compile Include="EditorCommands\PasteRichTextCommand.cs" />
-    <Compile Include="EditorCommands\PasteTypeFactory.cs" />
-    <Compile Include="EditorCommands\SaveDocumentCommand.cs" />
-    <Compile Include="EditorCommands\SwitchTabBackCommand.cs" />
-    <Compile Include="EditorCommands\SwitchTabCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RibbonBar.xaml.cs">
       <DependentUpon>RibbonBar.xaml</DependentUpon>
@@ -85,6 +91,7 @@
       <DependentUpon>ImageDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ImageDialog\ImageDialogViewModel.cs" />
+    <Compile Include="Views\MainEditor\CommandRegister.cs" />
     <Compile Include="Views\MainEditor\MainEditorView.xaml.cs">
       <DependentUpon>MainEditorView.xaml</DependentUpon>
     </Compile>
@@ -94,11 +101,6 @@
     </Compile>
     <Compile Include="Components\MarkdownSyntaxHighlighter.cs" />
     <Compile Include="Components\ScintillaConfig.cs" />
-    <Compile Include="EditorCommands\HeaderCommand.cs" />
-    <Compile Include="EditorCommands\ItalicCommand.cs" />
-    <Compile Include="EditorCommands\BoldCommand.cs" />
-    <Compile Include="EditorCommands\CommandBinder.cs" />
-    <Compile Include="EditorCommands\WrapperCommand.cs" />
     <Compile Include="Views\MainEditor\EditorControlViewModel.cs" />
     <Page Include="RibbonBar.xaml">
       <SubType>Designer</SubType>

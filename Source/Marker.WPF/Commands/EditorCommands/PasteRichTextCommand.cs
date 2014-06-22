@@ -1,4 +1,4 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.EditorCommands
 {
     using System.Text;
     using System.Windows.Forms;

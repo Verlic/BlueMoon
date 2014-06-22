@@ -1,8 +1,8 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
     using BlueMoon.UI.Views.MainEditor;
 
-    public class PastePlainTextCommand : CommandBase
+    public class SwitchTabBackCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
@@ -17,10 +17,18 @@
                 return;
             }
 
-            if (viewModel.MarkdownEditor.Clipboard.CanPaste)
+            var index = viewModel.Documents.IndexOf(viewModel.Document);
+
+            if (index == 0)
             {
-                viewModel.MarkdownEditor.Clipboard.Paste();
+                index = viewModel.Documents.Count - 1;
             }
+            else
+            {
+                index -= 1;
+            }
+
+            viewModel.Document = viewModel.Documents[index];
         }
     }
 }

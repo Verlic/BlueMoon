@@ -23,6 +23,7 @@
             scintilla.Indentation.TabIndents = true;
             scintilla.EndOfLine.Mode = EndOfLineMode.Crlf;
             scintilla.Margins[0].Width = 40;
+            scintilla.Encoding = System.Text.Encoding.UTF8;
             MarkdownLexer.Init(scintilla);
         }
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="clr-namespace:BlueMoon.UI.Components"
         Loaded="WindowLoaded"
-        x:Name="EditorWindow"
+        x:Name="EditorWindow" Closing="EditorWindowClosing"
         Title="BlueMoon Editor" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <components:DocumentTitleConverter x:Key="documentTitleConverter"></components:DocumentTitleConverter>

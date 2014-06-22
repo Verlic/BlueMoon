@@ -1,8 +1,8 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
     using BlueMoon.UI.Views.MainEditor;
 
-    public class SwitchTabBackCommand : CommandBase
+    public class SwitchTabCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
@@ -19,13 +19,13 @@
 
             var index = viewModel.Documents.IndexOf(viewModel.Document);
 
-            if (index == 0)
+            if (index == viewModel.Documents.Count - 1)
             {
-                index = viewModel.Documents.Count - 1;
+                index = 0;
             }
             else
             {
-                index -= 1;
+                index += 1;
             }
 
             viewModel.Document = viewModel.Documents[index];

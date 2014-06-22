@@ -5,11 +5,11 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Forms;
-    using System.Windows.Input;
 
     using BlueMoon.DocumentManager;
     using BlueMoon.UI.Annotations;
-    using BlueMoon.UI.EditorCommands;
+    using BlueMoon.UI.Commands.DocumentCommands;
+    using BlueMoon.UI.Commands.EditorCommands;
 
     using Converters.Markdown;
 
@@ -27,6 +27,8 @@
 
         private bool updatingDocument;
 
+        private CommandRegister commandRegister;
+
         public EditorControlViewModel()
         {
         }
@@ -35,7 +37,7 @@
         {
             this.htmlPreviewer = new HtmlPreviewUpdater(this.UpdateHtml);
             this.MarkdownEditor = markdownEditor;
-            this.CreateCommands();
+            this.commandRegister = new CommandRegister(this);
             this.HandleEditorEvents();
             this.Document = document;
         }
@@ -79,6 +81,8 @@
 
         public SaveDocumentCommand SaveDocumentCommand { get; set; }
 
+        public OpenDocumentCommand OpenDocumentCommand { get; set; }
+
         public string HtmlPreview
         {
             get
@@ -106,6 +110,11 @@
             }
         }
 
+        public void InsertImage(string markdownImage)
+        {
+            this.MarkdownEditor.InsertText(this.MarkdownEditor.CurrentPos, markdownImage);
+        }
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -114,18 +123,6 @@
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        private void CreateCommands()
-        {
-            this.CutCommand = new CutCommand();
-            this.CopyCommand = new CopyCommand();
-            this.PasteCommand = new PasteCommand();
-            this.NewCommand = new NewCommand();
-            this.CloseTabCommand = new CloseTabCommand();
-            this.SwitchTabCommand = new SwitchTabCommand();
-            this.SwitchTabBackCommand = new SwitchTabBackCommand();
-            this.SaveDocumentCommand = new SaveDocumentCommand();
         }
 
         private void HandleEditorEvents()
@@ -142,50 +139,24 @@
 
         private void MarkdownEditorKeyDown(object sender, KeyEventArgs e)
         {
-            ICommand commandToExecute = null;
+            var key = e.KeyCode;
 
             if (e.Control)
             {
-                switch (e.KeyCode)
-                {
-                    case Keys.V:
-                        {
-                            commandToExecute = this.PasteCommand;
-                            break;
-                        }
-
-                    case Keys.N:
-                        {
-                            commandToExecute = this.NewCommand;
-                            break;
-                        }
-
-                    case Keys.W:
-                        {
-                            commandToExecute = this.CloseTabCommand;
-                            break;
-                        }
-
-                    case Keys.S:
-                        {
-                            commandToExecute = this.SaveDocumentCommand;
-                            break;
-                        }
-                    case Keys.Tab:
-                        {
-                            if (e.Shift)
-                            {
-                                commandToExecute = this.SwitchTabBackCommand;
-                            }
-                            else
-                            {
-                                commandToExecute = this.SwitchTabCommand;    
-                            }
-                            
-                            break;
-                        }
-                }
+                key = key | Keys.Control;
             }
+
+            if (e.Shift)
+            {
+                key = key | Keys.Shift;
+            }
+
+            if (e.Alt)
+            {
+                key = key | Keys.Alt;
+            }
+
+            var commandToExecute = this.commandRegister.GetCommand(key);
 
             if (commandToExecute != null && commandToExecute.CanExecute(this))
             {
@@ -195,7 +166,7 @@
 
         private void MarkdownEditorTextChanged(object sender, EventArgs e)
         {
-            this.htmlPreviewer.Start(this.MarkdownEditor.Text);
+            this.htmlPreviewer.Start(this.MarkdownEditor.Text, this.Document.WorkingFolder);
             if (this.updatingDocument)
             {
                 return;
@@ -207,11 +178,6 @@
         private void UpdateHtml(string html)
         {
             this.HtmlPreview = html;
-        }
-
-        public void InsertImage(string markdownImage)
-        {
-            this.MarkdownEditor.InsertText(this.MarkdownEditor.CurrentPos, markdownImage);
         }
     }
 }

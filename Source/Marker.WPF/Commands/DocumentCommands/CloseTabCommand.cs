@@ -1,4 +1,4 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
     using System.Windows;
 
@@ -26,7 +26,8 @@
                 var result = MessageBox.Show(
                     string.Format("Want to save the changes to {0}?", currentDocument.Title),
                     "BlueMoon",
-                    MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Warning);
 
                 if (result == MessageBoxResult.Cancel)
                 {
@@ -41,6 +42,7 @@
 
             var index = viewModel.Documents.IndexOf(currentDocument);
             viewModel.Documents.Remove(currentDocument);
+            DocumentManager.DocumentManager.CloseDocument(currentDocument);
             if (index >= viewModel.Documents.Count)
             {
                 index -= 1;

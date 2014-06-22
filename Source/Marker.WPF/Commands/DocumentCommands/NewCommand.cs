@@ -1,8 +1,8 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
     using BlueMoon.UI.Views.MainEditor;
 
-    public class PasteCommand : CommandBase
+    public class NewCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
@@ -17,11 +17,9 @@
                 return;
             }
 
-            var pasteCommand = PasteTypeFactory.GetPasteCommand();
-            if (pasteCommand.CanExecute(viewModel))
-            {
-                pasteCommand.Execute(viewModel);    
-            }
+            var newDocument = DocumentManager.DocumentManager.StartNewDocument();
+            viewModel.Documents.Add(newDocument);
+            viewModel.Document = newDocument;
         }
     }
 }

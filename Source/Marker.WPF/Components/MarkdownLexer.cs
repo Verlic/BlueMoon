@@ -58,8 +58,8 @@
             scintillaControl.Styles[StyleLineNumber].BackColor = Color.FromArgb(40, 40, 40);
             scintillaControl.Styles[StyleLineNumber].ForeColor = Color.White;
             scintillaControl.Styles[StyleLineNumber].IsVisible = true;
-            scintillaControl.Styles[StyleLineNumber].Size = 12;
-            scintillaControl.Styles[StyleLineNumber].Font = new Font("Consolas", 12);
+            scintillaControl.Styles[StyleLineNumber].Size = 9;
+            scintillaControl.Styles[StyleLineNumber].Font = new Font("Consolas", 9);
 
 
             scintillaControl.Styles[StyleItalic].Italic = true;

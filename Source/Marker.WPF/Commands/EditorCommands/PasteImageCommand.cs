@@ -1,7 +1,6 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.EditorCommands
 {
     using System.IO;
-    using System.Windows;
 
     using BlueMoon.UI.Views.ImageDialog;
     using BlueMoon.UI.Views.MainEditor;

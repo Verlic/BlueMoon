@@ -16,6 +16,7 @@
 <!DOCTYPE html>
 <html>
 	<head>	
+		<base href="file:///{baseUrl}/" />
 		<style>
 			body {
 				font-family: 'Segoe UI';

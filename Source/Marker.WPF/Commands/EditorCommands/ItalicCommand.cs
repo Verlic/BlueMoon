@@ -1,4 +1,4 @@
-﻿namespace BlueMoon.UI.EditorCommands
+﻿namespace BlueMoon.UI.Commands.EditorCommands
 {
     public class ItalicCommand : WrapperCommand
     {
