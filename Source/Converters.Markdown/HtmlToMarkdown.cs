@@ -3,6 +3,8 @@
     using System.Threading.Tasks;
     using System.Web;
 
+    using HtmlAgilityPack;
+
     public class HtmlToMarkdown
     {
         private readonly string templatePath;
@@ -14,7 +16,8 @@
 
         public Task<string> ToHtml(string markdown)
         {
-            var convertedHtml = MarkdownConverter.ToHtml(HttpUtility.HtmlEncode(markdown), this.templatePath);
+            markdown = HtmlEntity.Entitize(markdown);
+            var convertedHtml = MarkdownConverter.ToHtml(markdown, this.templatePath);
             return convertedHtml;
         }
     }

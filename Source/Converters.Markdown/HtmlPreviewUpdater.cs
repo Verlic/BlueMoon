@@ -5,6 +5,7 @@
     using System.IO;
     using System.Reflection;
     using System.Threading.Tasks;
+    using System.Web;
 
     public class HtmlPreviewUpdater
     {
@@ -23,7 +24,7 @@
             this.updateQueue = new Queue<string>(5);
         }
 
-        public async void Start(string text)
+        public async void Start(string text, string baseUrl)
         {
             var slowTask = Task.Factory.StartNew(
                () =>
@@ -36,21 +37,23 @@
                    this.updateQueue.Enqueue(text);
                    if (!this.updating)
                    {
-                       this.Preview();
+                       this.Preview(baseUrl);
                    }
                });
             await slowTask;
         }
 
-        private async void Preview()
+        private async void Preview(string baseUrl)
         {
             this.updating = true;
             var markdown = this.updateQueue.Dequeue();
-            this.callback(await this.htmlToMarkdown.ToHtml(markdown));
+            var html = await this.htmlToMarkdown.ToHtml(markdown);
+            html = html.Replace("{baseUrl}", HttpUtility.HtmlEncode(baseUrl.Replace("\\", "/")));
+            this.callback(html);
             this.updating = false;
             if (this.updateQueue.Count > 0)
             {
-                this.Preview();
+                this.Preview(baseUrl);
             }
         }
 

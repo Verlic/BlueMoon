@@ -65,6 +65,7 @@
     <Compile Include="Commands\DocumentCommands\CloseTabCommand.cs" />
     <Compile Include="Commands\DocumentCommands\NewCommand.cs" />
     <Compile Include="Commands\DocumentCommands\OpenDocumentCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\SaveAsDocumentCommand.cs" />
     <Compile Include="Commands\DocumentCommands\SaveDocumentCommand.cs" />
     <Compile Include="Commands\DocumentCommands\SwitchTabBackCommand.cs" />
     <Compile Include="Commands\DocumentCommands\SwitchTabCommand.cs" />

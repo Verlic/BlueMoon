@@ -19,6 +19,8 @@
 
     public class EditorControlViewModel : INotifyPropertyChanged
     {
+        private readonly CommandRegister commandRegister;
+
         private readonly HtmlPreviewUpdater htmlPreviewer;
 
         private string htmlPreview;
@@ -26,8 +28,6 @@
         private MarkdownDocument document;
 
         private bool updatingDocument;
-
-        private CommandRegister commandRegister;
 
         public EditorControlViewModel()
         {
@@ -63,6 +63,20 @@
             }
         }
 
+        public string HtmlPreview
+        {
+            get
+            {
+                return this.htmlPreview;
+            }
+
+            set
+            {
+                this.htmlPreview = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         public Scintilla MarkdownEditor { get; set; }
 
         public CutCommand CutCommand { get; set; }
@@ -83,19 +97,7 @@
 
         public OpenDocumentCommand OpenDocumentCommand { get; set; }
 
-        public string HtmlPreview
-        {
-            get
-            {
-                return this.htmlPreview;
-            }
-
-            set
-            {
-                this.htmlPreview = value;
-                this.OnPropertyChanged();
-            }
-        }
+        public SaveAsDocumentCommand SaveAsDocumentCommand { get; set; }
 
         public void UpdateCommandStatus()
         {

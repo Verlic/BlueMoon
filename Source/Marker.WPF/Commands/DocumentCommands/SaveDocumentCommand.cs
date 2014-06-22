@@ -10,7 +10,7 @@
     {
         public override bool CanExecute(object parameter)
         {
-             var viewModel = parameter as EditorControlViewModel;
+            var viewModel = parameter as EditorControlViewModel;
             return viewModel != null && viewModel.Document.HasChanges;
         }
 
@@ -33,18 +33,15 @@
                                      };
 
                 var result = saveDialog.ShowDialog();
-                if (result == true)
+                if (result != true)
                 {
-                    viewModel.Document.IsTemporary = false;
-                    viewModel.Document.DocumentPath = saveDialog.FileName;
-                    viewModel.Document.WorkingFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    await DocumentManager.DocumentManager.SaveDocument(viewModel.Document);
+                    return;
                 }
+                
+                await DocumentManager.DocumentManager.SaveDocumentFromTempAsync(viewModel.Document, saveDialog.FileName);
             }
-            else
-            {
-                await DocumentManager.DocumentManager.SaveDocument(viewModel.Document);
-            }
+
+            await DocumentManager.DocumentManager.SaveDocumentAsync(viewModel.Document);
         }
     }
 }

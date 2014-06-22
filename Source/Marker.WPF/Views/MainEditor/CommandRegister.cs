@@ -38,6 +38,7 @@
             viewModel.SwitchTabCommand = new SwitchTabCommand();
             viewModel.SwitchTabBackCommand = new SwitchTabBackCommand();
             viewModel.SaveDocumentCommand = new SaveDocumentCommand();
+            viewModel.SaveAsDocumentCommand = new SaveAsDocumentCommand();
             viewModel.OpenDocumentCommand = new OpenDocumentCommand();
         }
 
@@ -49,8 +50,9 @@
             this.CommandCatalog.Add(Keys.Control | Keys.N, viewModel.NewCommand);
             this.CommandCatalog.Add(Keys.Control | Keys.O, viewModel.OpenDocumentCommand);
             this.CommandCatalog.Add(Keys.Control | Keys.S, viewModel.SaveDocumentCommand);
+            this.CommandCatalog.Add(Keys.Control | Keys.Shift | Keys.S, viewModel.SaveAsDocumentCommand);
             this.CommandCatalog.Add(Keys.Control | Keys.Tab, viewModel.SwitchTabCommand);
-            this.CommandCatalog.Add(Keys.Control | Keys.Shift | Keys.Tab, viewModel.CloseTabCommand);
+            this.CommandCatalog.Add(Keys.Control | Keys.Shift | Keys.Tab, viewModel.SwitchTabBackCommand);
             this.CommandCatalog.Add(Keys.Control | Keys.W, viewModel.CloseTabCommand);
         }
     }

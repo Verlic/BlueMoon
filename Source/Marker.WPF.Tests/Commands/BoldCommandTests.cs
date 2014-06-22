@@ -1,6 +1,6 @@
 ﻿namespace BlueMoon.UI.Tests.Commands
 {
-    using BlueMoon.UI.EditorCommands;
+    using BlueMoon.UI.Commands.EditorCommands;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

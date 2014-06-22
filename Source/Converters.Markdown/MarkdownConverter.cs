@@ -25,7 +25,7 @@
             var outputContent = MoonShine.Markdownify(
                 markdown,
                 Extensions,
-                false);
+                true);
 
             if (string.IsNullOrWhiteSpace(outputContent))
             {

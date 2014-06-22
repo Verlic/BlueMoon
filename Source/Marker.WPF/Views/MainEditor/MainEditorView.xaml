@@ -7,13 +7,50 @@
         Title="BlueMoon Editor" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <components:DocumentTitleConverter x:Key="documentTitleConverter"></components:DocumentTitleConverter>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Foreground">
+                <Setter.Value>White</Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+
+                        <Grid>
+                            <Border 
+              Name="Border"
+              Background="Black"
+              BorderBrush="Black" 
+              BorderThickness="0" 
+              CornerRadius="0" >
+                                <ContentPresenter x:Name="ContentSite"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                ContentSource="Header"
+                Margin="12,2,12,2"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF007DC8" />
+                                <Setter Property="Foreground" Value="white" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="white" />
+                                <Setter Property="Foreground" Value="black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TabControl x:Name="DocumentTabs" Grid.Row="0" ItemsSource="{Binding Documents}" SelectedItem="{Binding Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DocumentTabsSelectionChanged">
+        <TabControl x:Name="DocumentTabs" Grid.Row="0" ItemsSource="{Binding Documents}" SelectedItem="{Binding Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="DocumentTabsSelectionChanged" BorderBrush="{x:Null}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -21,7 +58,7 @@
                             <MultiBinding Converter="{StaticResource documentTitleConverter}">
                                 <Binding Path="Title"></Binding>
                                 <Binding Path="HasChanges"></Binding>
-                            </MultiBinding> 
+                            </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </DataTemplate>
@@ -44,5 +81,35 @@
             <WebBrowser x:Name="HtmlPreview" Grid.Column="1" Grid.Row="1" components:WebBrowserHelper.Html="{Binding HtmlPreview}" />
             <GridSplitter Grid.Column="0" Width="8" HorizontalAlignment="Right" Grid.Row="1" />
         </Grid>
+        <StatusBar x:Name="StatusBar" Grid.Row="2" VerticalAlignment="Bottom" Background="Beige" >
+            <StatusBarItem>
+                <TextBlock>Downloading File</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar Width="100" Height="20"
+                 Name="progressBar1">
+                    <ProgressBar.Triggers>
+                        <EventTrigger RoutedEvent="ProgressBar.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                Storyboard.TargetName="progressBar1" 
+                Storyboard.TargetProperty="Value"
+                From="0" To="100" Duration="0:0:5"  />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ProgressBar.Triggers>
+                </ProgressBar>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock>Online</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Image Source="images\help.bmp" Width="16" Height="16"/>
+            </StatusBarItem>
+        </StatusBar>
+
     </Grid>
 </Window>
