@@ -1,5 +1,6 @@
 ﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
+    using System;
     using System.Windows;
 
     using BlueMoon.UI.Views.MainEditor;
@@ -36,25 +37,32 @@
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // TODO: Save
+                    var saveCommand = new SaveDocumentCommand();
+                    if (saveCommand.CanExecute(parameter))
+                    {
+                        saveCommand.Execute(parameter);
+                    }
+                    else
+                    {
+                        throw new Exception("Unable to save document");
+                    }
                 }
             }
 
             var index = viewModel.Documents.IndexOf(currentDocument);
-            viewModel.Documents.Remove(currentDocument);
+            
             DocumentManager.DocumentManager.CloseDocument(currentDocument);
-            if (index >= viewModel.Documents.Count)
-            {
-                index -= 1;
-            }
+            index = index == viewModel.Documents.Count - 1 ? index -= 1 : index += 1;
 
-            if (viewModel.Documents.Count == 0)
+            // If the closing document is the only one in the list, we need to add a new instance
+            if (viewModel.Documents.Count == 1)
             {
                 viewModel.Documents.Add(DocumentManager.DocumentManager.StartNewDocument());
                 index = 0;
             }
 
             viewModel.Document = viewModel.Documents[index];
+            viewModel.Documents.Remove(currentDocument);
         }
     }
 }
