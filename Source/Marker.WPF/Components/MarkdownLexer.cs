@@ -74,7 +74,8 @@
             
             scintillaControl.Styles[StyleList].ForeColor = Color.Gray;
             scintillaControl.Styles[StyleBlockQuote].BackColor = Color.FromArgb(45, 145, 175);
-            scintillaControl.Styles[StyleBlockCode].ForeColor = Color.FromArgb(45, 145, 175);
+            scintillaControl.Styles[StyleBlockCode].BackColor = Color.FromArgb(45, 200, 105);
+            scintillaControl.Styles[StyleBlockCode].ForeColor = Color.White;
             scintillaControl.Styles[StyleHorizontalRule].ForeColor = Color.FromArgb(250, 40, 115);
             scintillaControl.Styles[StyleComment].ForeColor = Color.FromArgb(117, 113, 94);
         }
