@@ -2,8 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="clr-namespace:BlueMoon.UI.Components"
-        xmlns:documentManager="clr-namespace:BlueMoon.DocumentManager;assembly=BlueMoon.DocumentManager"
-        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         x:Name="EditorWindow"  Loaded="EditorWindowLoaded"
         Title="BlueMoon Editor" Height="350" Width="525" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -52,6 +50,7 @@
         <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenDocumentCommand}"></KeyBinding>
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveDocumentCommand}" CommandParameter="{Binding ElementName=DocumentTabs, Path=DataContext.CurrentDocument}"></KeyBinding>
         <KeyBinding Key="W" Modifiers="Control" Command="{Binding CloseTabCommand}" CommandParameter="{Binding ElementName=DocumentTabs, Path=DataContext.CurrentDocument}"></KeyBinding>
+        <KeyBinding Key="V" Modifiers="Control" Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=MarkdownEditor}"></KeyBinding>
         <KeyBinding Key="Tab" Modifiers="Control" Command="{Binding SwitchTabCommand}"></KeyBinding>
         <KeyBinding Key="Tab" Modifiers="Ctrl+Shift" Command="{Binding SwitchTabBackCommand}"></KeyBinding>
     </Window.InputBindings>
@@ -122,7 +121,11 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <GridSplitter Grid.Column="0" Width="8" HorizontalAlignment="Right" Grid.Row="1" />
-            <components:BindableTextEditor Grid.Row="1" Grid.Column="0" x:Name="MarkdownEditor" FontFamily="Consolas" FontSize="12" WordWrap="True" SyntaxHighlighting="MarkDown" ShowLineNumbers="True" Markdown="{Binding ElementName=DocumentTabs, Path=DataContext.CurrentDocument.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></components:BindableTextEditor>
+            <components:BindableTextEditor Grid.Row="1" Grid.Column="0" x:Name="MarkdownEditor" FontFamily="Consolas" FontSize="12" WordWrap="True" SyntaxHighlighting="MarkDown" ShowLineNumbers="True" Markdown="{Binding ElementName=DocumentTabs, Path=DataContext.CurrentDocument.Markdown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <components:BindableTextEditor.InputBindings>
+                        <KeyBinding Key="V" Modifiers="Control" Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=MarkdownEditor}"></KeyBinding>
+                </components:BindableTextEditor.InputBindings>
+            </components:BindableTextEditor>
             <WebBrowser x:Name="HtmlPreview" Grid.Column="1" Grid.Row="1" components:WebBrowserHelper.Html="{Binding HtmlPreview}" />           
         </Grid>
     </Grid>

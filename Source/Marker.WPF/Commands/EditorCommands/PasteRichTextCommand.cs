@@ -5,6 +5,8 @@
 
     using BlueMoon.UI.Views.MainEditor;
 
+    using ICSharpCode.AvalonEdit;
+
     using Clipboard = System.Windows.Clipboard;
     using TextDataFormat = System.Windows.TextDataFormat;
 
@@ -12,54 +14,50 @@
     {
         public override bool CanExecute(object parameter)
         {
-            return true;
+            return parameter is TextEditor;
         }
 
         public override void Execute(object parameter)
         {
-            //var viewModel = parameter as EditorControlViewModel;
-            //if (viewModel == null)
-            //{
-            //    return;
-            //}
+            var markdownEditor = (TextEditor)parameter;
 
-            //// convert RTF to Markdown
-            //var stringBuilder = new StringBuilder();
-            //var richTextBox = new RichTextBox { Rtf = Clipboard.GetText(TextDataFormat.Rtf), DetectUrls = true };
+            // convert RTF to Markdown
+            var stringBuilder = new StringBuilder();
+            var richTextBox = new RichTextBox { Rtf = Clipboard.GetText(TextDataFormat.Rtf), DetectUrls = true };
 
-            //// select first char
-            //richTextBox.Select(0, 1);
+            // select first char
+            richTextBox.Select(0, 1);
 
-            //var isBold = richTextBox.SelectionFont.Bold;
-            //var isItalic = richTextBox.SelectionFont.Italic;
-            //var isStrike = richTextBox.SelectionFont.Strikeout;
-            //var lastStart = 0;
+            var isBold = richTextBox.SelectionFont.Bold;
+            var isItalic = richTextBox.SelectionFont.Italic;
+            var isStrike = richTextBox.SelectionFont.Strikeout;
+            var lastStart = 0;
 
-            //for (var i = 0; i < richTextBox.TextLength; i++)
-            //{
-            //    richTextBox.Select(i, 1);
+            for (var i = 0; i < richTextBox.TextLength; i++)
+            {
+                richTextBox.Select(i, 1);
 
-            //    if (isBold != richTextBox.SelectionFont.Bold ||
-            //        isItalic != richTextBox.SelectionFont.Italic ||
-            //        isStrike != richTextBox.SelectionFont.Strikeout)
-            //    {
-            //        var segment = richTextBox.Text.Substring(lastStart, i - lastStart);
+                if (isBold != richTextBox.SelectionFont.Bold ||
+                    isItalic != richTextBox.SelectionFont.Italic ||
+                    isStrike != richTextBox.SelectionFont.Strikeout)
+                {
+                    var segment = richTextBox.Text.Substring(lastStart, i - lastStart);
 
-            //        stringBuilder.Append(this.ApplyFormat(segment, isBold, isItalic, isStrike));
+                    stringBuilder.Append(this.ApplyFormat(segment, isBold, isItalic, isStrike));
 
-            //        richTextBox.Select(i, 1);
+                    richTextBox.Select(i, 1);
 
-            //        isBold = richTextBox.SelectionFont.Bold;
-            //        isItalic = richTextBox.SelectionFont.Italic;
-            //        isStrike = richTextBox.SelectionFont.Strikeout;
-            //        lastStart = i;
-            //    }
-            //}
+                    isBold = richTextBox.SelectionFont.Bold;
+                    isItalic = richTextBox.SelectionFont.Italic;
+                    isStrike = richTextBox.SelectionFont.Strikeout;
+                    lastStart = i;
+                }
+            }
 
-            //var lastSegment = richTextBox.Text.Substring(lastStart);
-            //stringBuilder.Append(this.ApplyFormat(lastSegment, isBold, isItalic, isStrike));
+            var lastSegment = richTextBox.Text.Substring(lastStart);
+            stringBuilder.Append(this.ApplyFormat(lastSegment, isBold, isItalic, isStrike));
 
-            //viewModel.MarkdownEditor.Selection.Text = stringBuilder.ToString();
+            markdownEditor.SelectedText = stringBuilder.ToString();
         }
 
         private string ApplyFormat(string segment, bool isBold, bool isItalic, bool isStrike)

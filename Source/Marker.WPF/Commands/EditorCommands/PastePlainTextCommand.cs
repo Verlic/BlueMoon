@@ -1,26 +1,18 @@
 ﻿namespace BlueMoon.UI.Commands.EditorCommands
 {
-    using BlueMoon.UI.Views.MainEditor;
+    using ICSharpCode.AvalonEdit;
 
     public class PastePlainTextCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
-            return true;
+            return parameter is TextEditor;
         }
 
         public override void Execute(object parameter)
         {
-            //var viewModel = parameter as EditorControlViewModel;
-            //if (viewModel == null)
-            //{
-            //    return;
-            //}
-
-            //if (viewModel.MarkdownEditor.Clipboard.CanPaste)
-            //{
-            //    viewModel.MarkdownEditor.Clipboard.Paste();
-            //}
+            var markdownEditor = (TextEditor)parameter;
+            markdownEditor.Paste();
         }
     }
 }

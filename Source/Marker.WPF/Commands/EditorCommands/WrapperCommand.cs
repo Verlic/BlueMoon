@@ -18,7 +18,7 @@ namespace BlueMoon.UI.Commands.EditorCommands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return parameter is TextEditor;
         }
 
         public void Execute(object parameter)
