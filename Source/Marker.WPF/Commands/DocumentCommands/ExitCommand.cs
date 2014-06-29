@@ -2,7 +2,7 @@
 {
     using BlueMoon.DocumentManager;
 
-    public class NewCommand : CommandBase
+    public class ExitCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
@@ -11,7 +11,7 @@
 
         public override void Execute(object parameter)
         {
-            MarkdownApp.Current.NewDocument();
+            MarkdownApp.Current.ExitApp();
         }
     }
 }

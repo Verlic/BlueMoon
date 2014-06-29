@@ -1,8 +1,11 @@
 namespace BlueMoon.UI.Commands.EditorCommands
 {
-    using ScintillaNET;
+    using System;
+    using System.Windows.Input;
 
-    public class WrapperCommand
+    using ICSharpCode.AvalonEdit;
+
+    public class WrapperCommand : ICommand
     {
         private readonly string wrapper;
 
@@ -11,10 +14,19 @@ namespace BlueMoon.UI.Commands.EditorCommands
             this.wrapper = wrapper;
         }
 
-        public void Execute(Scintilla markdownEditor)
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
         {
-            var originalStartPosition = markdownEditor.Selection.Start;
-            var originalEndPosition = markdownEditor.Selection.End;
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            var markdownEditor = (TextEditor)parameter;
+
+            var originalStartPosition = markdownEditor.SelectionStart;
+            var originalSelectionLegth = markdownEditor.SelectionLength;
 
             if (originalStartPosition >= markdownEditor.Text.Length)
             {
@@ -26,41 +38,41 @@ namespace BlueMoon.UI.Commands.EditorCommands
                 return;
             }
 
-            if (originalStartPosition == originalEndPosition)
+            if (originalSelectionLegth == 0)
             {
                 this.WrapSingleWord(markdownEditor, originalStartPosition);
             }
             else
             {
-                this.WrapSelection(markdownEditor, originalStartPosition, originalEndPosition);
+                this.WrapSelection(markdownEditor, originalStartPosition, originalSelectionLegth);
             }
         }
 
-        private void WrapSelection(Scintilla markdownEditor, int originalStartPosition, int originalEndPosition)
+        private void WrapSelection(TextEditor markdownEditor, int originalStartPosition, int originalSelectionLength)
         {
-            if (markdownEditor.Selection.Text.StartsWith(this.wrapper) && markdownEditor.Selection.Text.EndsWith(this.wrapper))
+            if (markdownEditor.SelectedText.StartsWith(this.wrapper) && markdownEditor.SelectedText.EndsWith(this.wrapper))
             {
-                markdownEditor.Selection.Text = markdownEditor.Selection.Text.Substring(
+                markdownEditor.SelectedText = markdownEditor.SelectedText.Substring(
                     this.wrapper.Length,
-                    markdownEditor.Selection.Text.Length - (2 * this.wrapper.Length));
-                markdownEditor.Selection.Start = originalStartPosition;
-                markdownEditor.Selection.End = originalEndPosition - (2 * this.wrapper.Length);
+                    markdownEditor.SelectedText.Length - (2 * this.wrapper.Length));
+                markdownEditor.SelectionStart = originalStartPosition;
+                markdownEditor.SelectionLength = originalSelectionLength - (2 * this.wrapper.Length);
                 return;
             }
 
-            markdownEditor.Selection.Text = string.Format("{0}{1}{0}", this.wrapper, markdownEditor.Selection.Text);
-            markdownEditor.Selection.Start = originalStartPosition;
-            markdownEditor.Selection.End = originalEndPosition + (2 * this.wrapper.Length);
+            markdownEditor.SelectedText = string.Format("{0}{1}{0}", this.wrapper, markdownEditor.SelectedText);
+            markdownEditor.SelectionStart = originalStartPosition;
+            markdownEditor.SelectionLength = originalSelectionLength + (2 * this.wrapper.Length);
         }
 
-        private void WrapSingleWord(Scintilla markdownEditor, int originalStartPosition)
+        private void WrapSingleWord(TextEditor markdownEditor, int originalStartPosition)
         {
             var startPosition = 0;
             var endPosition = markdownEditor.Text.Length;
 
             // Seek whitespace
-            var whitespacePosition = markdownEditor.Text.LastIndexOf(' ', markdownEditor.Selection.Start);
-            var endOfLinePosition = markdownEditor.Text.LastIndexOf('\n', markdownEditor.Selection.Start);
+            var whitespacePosition = markdownEditor.Text.LastIndexOf(' ', markdownEditor.SelectionStart);
+            var endOfLinePosition = markdownEditor.Text.LastIndexOf('\n', markdownEditor.SelectionStart);
 
             if (whitespacePosition != -1 || endOfLinePosition != -1)
             {
@@ -68,8 +80,8 @@ namespace BlueMoon.UI.Commands.EditorCommands
                 startPosition += 1;
             }
 
-            whitespacePosition = markdownEditor.Text.IndexOf(' ', markdownEditor.Selection.Start);
-            endOfLinePosition = markdownEditor.Text.IndexOf('\r', markdownEditor.Selection.Start);
+            whitespacePosition = markdownEditor.Text.IndexOf(' ', markdownEditor.SelectionStart);
+            endOfLinePosition = markdownEditor.Text.IndexOf('\r', markdownEditor.SelectionStart);
 
             if (whitespacePosition != -1 || endOfLinePosition != -1)
             {
@@ -78,22 +90,18 @@ namespace BlueMoon.UI.Commands.EditorCommands
                 endPosition = whitespacePosition < endOfLinePosition ? whitespacePosition : endOfLinePosition;
             }
 
-            markdownEditor.Selection.Start = startPosition;
-            markdownEditor.Selection.End = endPosition;
+            markdownEditor.SelectionStart = startPosition;
+            markdownEditor.SelectionLength = endPosition - startPosition;
 
-            if (markdownEditor.Selection.Text.StartsWith(this.wrapper) && markdownEditor.Selection.Text.EndsWith(this.wrapper))
+            if (markdownEditor.SelectedText.StartsWith(this.wrapper) && markdownEditor.SelectedText.EndsWith(this.wrapper))
             {
-                markdownEditor.Selection.Text = markdownEditor.Selection.Text.Substring(
+                markdownEditor.SelectedText = markdownEditor.SelectedText.Substring(
                   this.wrapper.Length,
-                  markdownEditor.Selection.Text.Length - (2 * this.wrapper.Length));
-                markdownEditor.Selection.Start = originalStartPosition - this.wrapper.Length;
-                markdownEditor.Selection.End = originalStartPosition - this.wrapper.Length;
+                  markdownEditor.SelectedText.Length - (2 * this.wrapper.Length));
                 return;
             }
 
-            markdownEditor.Selection.Text = string.Format("{0}{1}{0}", this.wrapper, markdownEditor.Selection.Text);
-            markdownEditor.Selection.Start = originalStartPosition + this.wrapper.Length;
-            markdownEditor.Selection.End = markdownEditor.Selection.Start;
+            markdownEditor.SelectedText = string.Format("{0}{1}{0}", this.wrapper, markdownEditor.SelectedText);
         }
     }
 }

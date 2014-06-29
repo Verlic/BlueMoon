@@ -14,27 +14,27 @@
 
         public override void Execute(object parameter)
         {
-            var viewModel = parameter as EditorControlViewModel;
-            if (viewModel == null)
-            {
-                return;
-            }
+            //var viewModel = parameter as EditorControlViewModel;
+            //if (viewModel == null)
+            //{
+            //    return;
+            //}
 
-            var directory = Path.Combine(viewModel.Document.WorkingFolder, "images");
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            //var directory = Path.Combine(viewModel.CurrentDocument.WorkingFolder, "images");
+            //if (!Directory.Exists(directory))
+            //{
+            //    Directory.CreateDirectory(directory);
+            //}
 
-            var dialog = new ImageDialogView(viewModel.Document);
-            var result = dialog.ShowDialog();
+            //var dialog = new ImageDialogView(viewModel.CurrentDocument);
+            //var result = dialog.ShowDialog();
 
-            if (result == true)
-            {
-                var markdownImage = string.Format("![{0}](Images/{0}.png?raw=true)", dialog.FileName);
-                dialog.Image.Save(dialog.Destination);
-                viewModel.InsertImage(markdownImage);
-            }
+            //if (result == true)
+            //{
+            //    var markdownImage = string.Format("![{0}](Images/{0}.png?raw=true)", dialog.FileName);
+            //    dialog.Image.Save(dialog.Destination);
+            //    viewModel.InsertImage(markdownImage);
+            //}
         }
     }
 }

@@ -9,7 +9,7 @@
 
     public class CommandRegister
     {
-        public CommandRegister(EditorControlViewModel viewModel)
+        public CommandRegister(EditorViewModel viewModel)
         {
             this.CommandCatalog = new Dictionary<Keys, CommandBase>();
             this.InstantiateCommands(viewModel);
@@ -28,8 +28,10 @@
             return null;
         }
 
-        private void InstantiateCommands(EditorControlViewModel viewModel)
+        private void InstantiateCommands(EditorViewModel viewModel)
         {
+            viewModel.ItalicCommand = new ItalicCommand();
+            viewModel.BoldCommand = new BoldCommand();
             viewModel.CutCommand = new CutCommand();
             viewModel.CopyCommand = new CopyCommand();
             viewModel.PasteCommand = new PasteCommand();
@@ -40,9 +42,10 @@
             viewModel.SaveDocumentCommand = new SaveDocumentCommand();
             viewModel.SaveAsDocumentCommand = new SaveAsDocumentCommand();
             viewModel.OpenDocumentCommand = new OpenDocumentCommand();
+            viewModel.ExitCommand = new ExitCommand();
         }
 
-        private void RegisterCommands(EditorControlViewModel viewModel)
+        private void RegisterCommands(EditorViewModel viewModel)
         {
             this.CommandCatalog.Add(Keys.Control | Keys.X, viewModel.CutCommand);
             this.CommandCatalog.Add(Keys.Control | Keys.C, viewModel.CopyCommand);

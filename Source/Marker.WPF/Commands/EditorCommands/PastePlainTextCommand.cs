@@ -11,16 +11,16 @@
 
         public override void Execute(object parameter)
         {
-            var viewModel = parameter as EditorControlViewModel;
-            if (viewModel == null)
-            {
-                return;
-            }
+            //var viewModel = parameter as EditorControlViewModel;
+            //if (viewModel == null)
+            //{
+            //    return;
+            //}
 
-            if (viewModel.MarkdownEditor.Clipboard.CanPaste)
-            {
-                viewModel.MarkdownEditor.Clipboard.Paste();
-            }
+            //if (viewModel.MarkdownEditor.Clipboard.CanPaste)
+            //{
+            //    viewModel.MarkdownEditor.Clipboard.Paste();
+            //}
         }
     }
 }

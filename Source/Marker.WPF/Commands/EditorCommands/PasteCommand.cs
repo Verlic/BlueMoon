@@ -11,17 +11,17 @@
 
         public override void Execute(object parameter)
         {
-            var viewModel = parameter as EditorControlViewModel;
-            if (viewModel == null)
-            {
-                return;
-            }
+            //var viewModel = parameter as EditorControlViewModel;
+            //if (viewModel == null)
+            //{
+            //    return;
+            //}
 
-            var pasteCommand = PasteTypeFactory.GetPasteCommand();
-            if (pasteCommand.CanExecute(viewModel))
-            {
-                pasteCommand.Execute(viewModel);    
-            }
+            //var pasteCommand = PasteTypeFactory.GetPasteCommand();
+            //if (pasteCommand.CanExecute(viewModel))
+            //{
+            //    pasteCommand.Execute(viewModel);    
+            //}
         }
     }
 }

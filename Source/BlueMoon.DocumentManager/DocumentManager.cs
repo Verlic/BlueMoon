@@ -11,7 +11,7 @@
 
         private static bool saving;
 
-        public static MarkdownDocument StartNewDocument()
+        public MarkdownDocument StartNewDocument()
         {
             newDocumentInstancesCount += 1;
             var newDocumentTitle = string.Format("Document{0}.md", newDocumentInstancesCount);
@@ -32,12 +32,12 @@
             return document;
         }
 
-        public static bool CanSave()
+        public bool CanSave()
         {
             return !saving;
         }
 
-        public static async Task SaveDocumentAsync(MarkdownDocument document)
+        public async Task SaveDocumentAsync(MarkdownDocument document)
         {
             if (!saving)
             {
@@ -52,7 +52,7 @@
             }
         }
 
-        public static Task SaveDocumentFromTempAsync(MarkdownDocument document, string fileName)
+        public Task SaveDocumentFromTempAsync(MarkdownDocument document, string fileName)
         {
             var destinationDirectory = Path.GetDirectoryName(fileName);
             var workingImagesDirectory = Path.Combine(document.WorkingFolder, "Images");
@@ -80,10 +80,10 @@
             document.IsTemporary = false;
             document.DocumentPath = fileName;
             document.WorkingFolder = Path.GetDirectoryName(fileName);
-            return SaveDocumentAsync(document);
+            return this.SaveDocumentAsync(document);
         }
 
-        public static async Task<MarkdownDocument> OpenDocumentAsync(string fileName)
+        public async Task<MarkdownDocument> OpenDocumentAsync(string fileName)
         {
             var fileInfo = new FileInfo(fileName);
             var directory = fileInfo.DirectoryName;
@@ -103,7 +103,7 @@
             };
         }
 
-        public static void CloseDocument(MarkdownDocument currentDocument)
+        public void CloseDocument(MarkdownDocument currentDocument)
         {
             if (currentDocument.IsTemporary)
             {

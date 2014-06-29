@@ -34,8 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ScintillaNET">
-      <HintPath>..\libs\ScintillaNET.dll</HintPath>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\packages\AvalonEdit.5.0.1-pre\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -43,6 +47,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +68,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DocumentCommands\CloseTabCommand.cs" />
+    <Compile Include="Commands\DocumentCommands\ExitCommand.cs" />
     <Compile Include="Commands\DocumentCommands\NewCommand.cs" />
     <Compile Include="Commands\DocumentCommands\OpenDocumentCommand.cs" />
     <Compile Include="Commands\DocumentCommands\SaveAsDocumentCommand.cs" />
@@ -81,13 +87,13 @@
     <Compile Include="Commands\EditorCommands\PasteRichTextCommand.cs" />
     <Compile Include="Commands\EditorCommands\PasteTypeFactory.cs" />
     <Compile Include="Commands\EditorCommands\WrapperCommand.cs" />
+    <Compile Include="Components\BindableTextEditor.cs" />
     <Compile Include="Components\DocumentTitleConverter.cs" />
     <Compile Include="Components\DrawingImageExtension.cs" />
+    <Compile Include="Components\EditorConfiguration.cs" />
     <Compile Include="Components\WebBrowserHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="RibbonBar.xaml.cs">
-      <DependentUpon>RibbonBar.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\MainEditor\EditorViewModel.cs" />
     <Compile Include="Views\ImageDialog\ImageDialogView.xaml.cs">
       <DependentUpon>ImageDialogView.xaml</DependentUpon>
     </Compile>
@@ -100,13 +106,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components\MarkdownSyntaxHighlighter.cs" />
-    <Compile Include="Components\ScintillaConfig.cs" />
-    <Compile Include="Views\MainEditor\EditorControlViewModel.cs" />
-    <Page Include="RibbonBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ImageDialog\ImageDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,7 +116,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\MarkdownLexer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -135,6 +133,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Data\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,6 +187,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(SolutionDir)Libs\libsundown.dll" "$(TargetDir)libsundown.dll"</PostBuildEvent>

@@ -33,6 +33,8 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event EventHandler MarkdownChanged;
+
         public string DocumentPath
         {
             get
@@ -114,6 +116,7 @@
             {
                 this.HasChanges = this.markdown != value;
                 this.markdown = value;
+                this.RaiseMarkdownChanged();
                 this.OnPropertyChanged();
             }
         }
@@ -125,6 +128,15 @@
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void RaiseMarkdownChanged()
+        {
+            var handler = this.MarkdownChanged;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
             }
         }
     }

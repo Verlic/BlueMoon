@@ -1,6 +1,5 @@
 ﻿namespace BlueMoon.UI.Components
 {
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -31,16 +30,8 @@
                 return;
             }
 
-#if DEBUG
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-#endif
             var html = e.NewValue.ToString();
             browser.NavigateToString(html);
-#if DEBUG
-            stopwatch.Stop();
-            Trace.TraceInformation("Navigate To String time: " + stopwatch.ElapsedMilliseconds);
-#endif
         }
     }
 }

@@ -1,47 +1,19 @@
 ﻿namespace BlueMoon.UI.Commands.DocumentCommands
 {
-    using System.IO;
-
-    using BlueMoon.UI.Views.MainEditor;
-
-    using Microsoft.Win32;
+    using BlueMoon.DocumentManager;
 
     public class SaveDocumentCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
-            var viewModel = parameter as EditorControlViewModel;
-            return viewModel != null && viewModel.Document.HasChanges;
+            var document = parameter as MarkdownDocument;
+            return document != null && document.HasChanges;
         }
 
-        public override async void Execute(object parameter)
+        public override void Execute(object parameter)
         {
-            var viewModel = parameter as EditorControlViewModel;
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            if (viewModel.Document.IsTemporary)
-            {
-
-                var saveDialog = new SaveFileDialog
-                                     {
-                                         FileName = viewModel.Document.Title,
-                                         DefaultExt = ".md",
-                                         Filter = "Markdown documents (.md)|*.md"
-                                     };
-
-                var result = saveDialog.ShowDialog();
-                if (result != true)
-                {
-                    return;
-                }
-                
-                await DocumentManager.DocumentManager.SaveDocumentFromTempAsync(viewModel.Document, saveDialog.FileName);
-            }
-
-            await DocumentManager.DocumentManager.SaveDocumentAsync(viewModel.Document);
+            var document = (MarkdownDocument)parameter;
+            MarkdownApp.Current.SaveDocument(document);
         }
     }
 }
