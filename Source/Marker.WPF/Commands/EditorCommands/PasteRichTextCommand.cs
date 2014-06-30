@@ -57,7 +57,9 @@
             var lastSegment = richTextBox.Text.Substring(lastStart);
             stringBuilder.Append(this.ApplyFormat(lastSegment, isBold, isItalic, isStrike));
 
-            markdownEditor.SelectedText = stringBuilder.ToString();
+            var richText = stringBuilder.ToString();
+            markdownEditor.SelectedText = richText;
+            markdownEditor.Select(markdownEditor.SelectionStart + richText.Length, 0);
         }
 
         private string ApplyFormat(string segment, bool isBold, bool isItalic, bool isStrike)

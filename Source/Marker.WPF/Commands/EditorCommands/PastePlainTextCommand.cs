@@ -1,5 +1,7 @@
 ﻿namespace BlueMoon.UI.Commands.EditorCommands
 {
+    using System.Windows;
+
     using ICSharpCode.AvalonEdit;
 
     public class PastePlainTextCommand : CommandBase
@@ -12,7 +14,10 @@
         public override void Execute(object parameter)
         {
             var markdownEditor = (TextEditor)parameter;
-            markdownEditor.Paste();
+            var text = Clipboard.GetText();
+            markdownEditor.SelectedText = text;
+            markdownEditor.Select(markdownEditor.SelectionStart + text.Length, 0);
+
         }
     }
 }
