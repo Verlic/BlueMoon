@@ -9,10 +9,10 @@
             return parameter as MarkdownDocument != null;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             var document = (MarkdownDocument)parameter;
-            MarkdownApp.Current.CloseDocumentAsync(document);
+            await MarkdownApp.Current.CloseDocumentAsync(document);
         }
     }
 }
