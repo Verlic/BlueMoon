@@ -6,6 +6,7 @@
     using BlueMoon.UI.Commands;
     using BlueMoon.UI.Commands.DocumentCommands;
     using BlueMoon.UI.Commands.EditorCommands;
+    using BlueMoon.UI.Commands.PublishingCommands;
 
     public class CommandRegister
     {
@@ -43,6 +44,7 @@
             viewModel.SaveAsDocumentCommand = new SaveAsDocumentCommand();
             viewModel.OpenDocumentCommand = new OpenDocumentCommand();
             viewModel.ExitCommand = new ExitCommand();
+            viewModel.WordPressDialogCommand = new WordPressDialogCommand();
         }
 
         private void RegisterCommands(EditorViewModel viewModel)

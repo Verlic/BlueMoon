@@ -87,6 +87,7 @@
     <Compile Include="Commands\EditorCommands\PasteRichTextCommand.cs" />
     <Compile Include="Commands\EditorCommands\PasteTypeFactory.cs" />
     <Compile Include="Commands\EditorCommands\WrapperCommand.cs" />
+    <Compile Include="Commands\PublishingCommands\WordPressDialogCommand.cs" />
     <Compile Include="Components\BindableTextEditor.cs" />
     <Compile Include="Components\DocumentTitleConverter.cs" />
     <Compile Include="Components\DrawingImageExtension.cs" />
@@ -106,6 +107,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Publishing\PublishToWordPressView.xaml.cs">
+      <DependentUpon>PublishToWordPressView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\ImageDialog\ImageDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +117,10 @@
     <Page Include="Views\MainEditor\MainEditorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Publishing\PublishToWordPressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +190,10 @@
     <ProjectReference Include="..\Converters.Markdown\Converters.Markdown.csproj">
       <Project>{dd7c0513-7ba5-4b1f-8ec9-18d092fd8708}</Project>
       <Name>Converters.Markdown</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Publishers\Publishers.csproj">
+      <Project>{0554CD69-710E-4051-AC2F-C352DE7F4DCA}</Project>
+      <Name>Publishers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,18 @@
-﻿namespace BlueMoon.UI.Commands.DocumentCommands
+﻿namespace BlueMoon.DocumentManager.Commands
 {
     using BlueMoon.DocumentManager;
 
-    public class SaveAsDocumentCommand : CommandBase
+    public class CloseDocumentCommand : CommandBase
     {
         public override bool CanExecute(object parameter)
         {
             return parameter as MarkdownDocument != null;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             var document = (MarkdownDocument)parameter;
-            MarkdownApp.Current.SaveDocumentAsync(document, true);
+            await MarkdownApp.Current.CloseDocumentAsync(document);
         }
     }
 }

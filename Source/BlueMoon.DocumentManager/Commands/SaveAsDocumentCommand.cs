@@ -1,4 +1,4 @@
-﻿namespace BlueMoon.UI.Commands.DocumentCommands
+﻿namespace BlueMoon.DocumentManager.Commands
 {
     using BlueMoon.DocumentManager;
 
@@ -9,10 +9,10 @@
             return parameter as MarkdownDocument != null;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             var document = (MarkdownDocument)parameter;
-            MarkdownApp.Current.SaveDocumentAsync(document, true);
+            await MarkdownApp.Current.SaveDocumentAsync(document, true);
         }
     }
 }

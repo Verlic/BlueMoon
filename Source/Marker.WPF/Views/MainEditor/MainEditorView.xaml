@@ -92,7 +92,9 @@
                 </MenuItem>
 
             </MenuItem>
-            <MenuItem Header="_Tools" />
+            <MenuItem Header="_Publish">
+                <MenuItem Header="_Publish to WordPress" Command="{Binding WordPressDialogCommand}"></MenuItem>
+            </MenuItem>
         </Menu>
         <TabControl x:Name="DocumentTabs" Grid.Row="1" ItemsSource="{Binding Documents}" SelectedItem="{Binding CurrentDocument, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{x:Null}">
             <TabControl.ItemTemplate>

@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" debug="True" #>
+<#@ output extension="html" #>
+<#@ assembly name="System.dll" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="System.Web.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Web" #>
+<#@ property name="Content" type="System.String" processor="PropertyProcessor" #>
+
+<!DOCTYPE html>
+<html>
+	<head>	
+		<base href="file:///{baseUrl}/" />
+		<style>
+			body {
+				font-family: 'Segoe UI';
+				font-size: 12pt;
+				font-weight: 100;
+				color: rgb(40, 40, 40);
+			}
+
+			h1, h2, h3, h4, h5{
+				font-family: 'Segoe UI';
+				font-weight: 100;
+				color: rgb(40, 40, 40);				
+			}
+
+			.codelanguage{
+				display: none;
+			}
+			
+			code{
+				font-size: 10pt;
+				font-family: 'Consolas';
+			}
+
+		</style>	
+	</head>
+	<body>
+		<#= Content #>
+	</body>
+</html>

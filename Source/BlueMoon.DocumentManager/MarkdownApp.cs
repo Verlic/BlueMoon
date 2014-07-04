@@ -11,11 +11,17 @@
 
     using BlueMoon.DocumentManager.Annotations;
 
+    using Converters.Markdown;
+
     public class MarkdownApp : INotifyPropertyChanged
     {
         private readonly DocumentManager documentManager;
 
+        private readonly HtmlPreviewUpdater htmlPreviewer;
+
         private MarkdownDocument currentDocument;
+
+        private string htmlPreview;
 
         static MarkdownApp()
         {
@@ -26,6 +32,8 @@
         {
             this.Documents = new ObservableCollection<MarkdownDocument>();
             this.documentManager = new DocumentManager();
+            this.Commands = new ApplicationCommands();
+            this.htmlPreviewer = new HtmlPreviewUpdater(this.UpdateHtml);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -35,6 +43,8 @@
         public static MarkdownApp Current { get; private set; }
 
         public ObservableCollection<MarkdownDocument> Documents { get; set; }
+
+        public ApplicationCommands Commands { get; private set; }
 
         public MarkdownDocument CurrentDocument
         {
@@ -53,6 +63,20 @@
                 this.currentDocument = value;
                 this.currentDocument.MarkdownChanged += this.OnCurrentDocumentMarkdownChanged;
                 this.RaiseCurrentDocumentMarkdownChanged();
+                this.OnPropertyChanged();
+            }
+        }
+
+        public string HtmlPreview
+        {
+            get
+            {
+                return this.htmlPreview;
+            }
+
+            set
+            {
+                this.htmlPreview = value;
                 this.OnPropertyChanged();
             }
         }
@@ -91,7 +115,7 @@
             }
         }
 
-        public async Task<bool> SaveDocument(MarkdownDocument document, bool showDialog = false)
+        public async Task<bool> SaveDocumentAsync(MarkdownDocument document, bool showDialog = false)
         {
             if (showDialog || document.IsTemporary)
             {
@@ -159,7 +183,7 @@
 
                 if (result == true)
                 {
-                    var isSaved = await this.SaveDocument(document);
+                    var isSaved = await this.SaveDocumentAsync(document);
                     if (!isSaved)
                     {
                         return false;
@@ -203,7 +227,7 @@
 
                     if (result == true)
                     {
-                        this.SaveDocument(document);
+                        this.SaveDocumentAsync(document);
                     }
                 }
 
@@ -239,11 +263,17 @@
 
         private void RaiseCurrentDocumentMarkdownChanged()
         {
-            var handler = this.CurrentDocumentMarkdownChanged;
-            if (handler != null)
+            if (this.CurrentDocument == null)
             {
-                handler(this, new EventArgs());
+                return;
             }
+
+            this.htmlPreviewer.Start(this.CurrentDocument.Markdown, this.CurrentDocument.WorkingFolder);
+        }
+
+        private void UpdateHtml(string html)
+        {
+            this.HtmlPreview = html;
         }
     }
 }

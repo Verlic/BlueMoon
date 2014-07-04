@@ -1,0 +1,22 @@
+﻿<Window x:Class="BlueMoon.UI.Views.Publishing.PublishToWordPressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PublishToWordPressView" Height="250" Width="300">
+    <Grid>
+        <StackPanel Margin="5">
+            <TextBlock>Post Title:</TextBlock>
+            <TextBox x:Name="TitleText" Margin="0, 5" Text="{Binding PostTitle}"></TextBox>
+            <TextBlock>WordPress Site:</TextBlock>
+            <TextBox x:Name="SiteText" Margin="0, 5" Text="{Binding Site}"></TextBox>
+            <TextBlock>Username:</TextBlock>
+            <TextBox x:Name="UsernameText" Margin="0, 5" Text="{Binding Username}"></TextBox>
+            <TextBlock>Password:</TextBlock>
+            <PasswordBox x:Name="PasswordText" Margin="0, 5"></PasswordBox>
+            <CheckBox x:Name="IsDraftCheck" IsChecked="{Binding IsDraft}">Publish as Draft</CheckBox>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="PublishButton" Margin="0,5" Width="50" Click="PublishButtonClick">_Publish</Button>
+                <Button x:Name="CancelButton" Margin="5" Width="50" IsCancel="True" Click="CancelButtonClick">_Cancel</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

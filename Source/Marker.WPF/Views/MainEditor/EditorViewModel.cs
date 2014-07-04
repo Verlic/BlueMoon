@@ -8,6 +8,7 @@
     using BlueMoon.UI.Annotations;
     using BlueMoon.UI.Commands.DocumentCommands;
     using BlueMoon.UI.Commands.EditorCommands;
+    using BlueMoon.UI.Commands.PublishingCommands;
 
     using Converters.Markdown;
 
@@ -53,6 +54,8 @@
         public SaveAsDocumentCommand SaveAsDocumentCommand { get; set; }
 
         public ExitCommand ExitCommand { get; set; }
+
+        public WordPressDialogCommand WordPressDialogCommand { get; set; }
 
         public string HtmlPreview
         {
