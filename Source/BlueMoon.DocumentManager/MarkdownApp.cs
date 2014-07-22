@@ -61,7 +61,11 @@
                 }
 
                 this.currentDocument = value;
-                this.currentDocument.MarkdownChanged += this.OnCurrentDocumentMarkdownChanged;
+                if (value != null)
+                {
+                    this.currentDocument.MarkdownChanged += this.OnCurrentDocumentMarkdownChanged;
+                }
+
                 this.RaiseCurrentDocumentMarkdownChanged();
                 this.OnPropertyChanged();
             }
